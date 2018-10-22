@@ -3,7 +3,7 @@ using SportsStore.Domain.Entities;
 
 namespace SportsStore.Domain.Concrete
 {
-    public class EFDbContext : DbContext
+    public class EfDbContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
     }

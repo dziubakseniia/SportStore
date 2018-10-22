@@ -4,13 +4,13 @@ using SportsStore.Domain.Entities;
 
 namespace SportsStore.Domain.Concrete
 {
-    public class EFProductRepository : IProductRepository
+    public class EfProductRepository : IProductRepository
     {
-        private EFDbContext context = new EFDbContext();
+        private EfDbContext _context = new EfDbContext();
 
         public IEnumerable<Product> Products
         {
-            get { return context.Products; }
+            get { return _context.Products; }
         }
     }
 }

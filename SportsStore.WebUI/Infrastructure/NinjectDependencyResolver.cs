@@ -29,7 +29,7 @@ namespace SportsStore.WebUI.Infrastructure
 
         private void AddBindings()
         {
-            _kernel.Bind<IProductRepository>().To<EFProductRepository>();
+            _kernel.Bind<IProductRepository>().To<EfProductRepository>();
 
             /**If there are no db
             /*Mock<IProductRepository> mock = new Mock<IProductRepository>();
