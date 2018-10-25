@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Mvc;
 using Ninject;
 using SportsStore.Domain.Abstract;
@@ -31,17 +32,13 @@ namespace SportsStore.WebUI.Infrastructure
         {
             _kernel.Bind<IProductRepository>().To<EfProductRepository>();
 
-            /**If there are no db
-            /*Mock<IProductRepository> mock = new Mock<IProductRepository>();
-
-            mock.Setup(m => m.Products).Returns(new List<Product>
+            EmailSettings emailSettings = new EmailSettings
             {
-                new Product{Name = "Football", Price = 25},
-                new Product{Name = "Surf board", Price = 179},
-                new Product{Name = "Running shoes", Price = 95}
-            });
+                WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
+            };
 
-            _kernel.Bind<IProductRepository>().ToConstant(mock.Object);*/
+            _kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>()
+                .WithConstructorArgument("settings", "emailSettings");
         }
     }
 }
