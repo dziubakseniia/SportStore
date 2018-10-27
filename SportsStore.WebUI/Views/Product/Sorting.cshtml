@@ -1,0 +1,23 @@
+﻿@model List<string>
+
+<div class="btn-group">
+    <button type="button" id="drop" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sorting
+    </button>
+    <div class="dropdown-menu" id="menu">
+        @foreach (var sortingType in Model)
+        {
+            @Html.RouteLink(sortingType, new
+            {
+                controller = "Product",
+                action = "List",
+                page = 1,
+                sorting = sortingType,
+                category = ViewBag.SelectedCategory
+            }, new
+            {
+                @class = "dropdown-item"
+            })
+        }
+    </div>
+</div>

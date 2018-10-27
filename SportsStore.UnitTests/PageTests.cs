@@ -29,7 +29,7 @@ namespace SportsStore.UnitTests
 
             ProductController controller = new ProductController(mock.Object) { PageSize = 3 };
 
-            ProductsListViewModel result = (ProductsListViewModel)controller.List(null, 2).Model;
+            ProductsListViewModel result = (ProductsListViewModel)controller.List(null, null, 2).Model;
             Product[] prodArray = result.Products.ToArray();
             Assert.IsTrue(prodArray.Length == 2);
             Assert.AreEqual(prodArray[0].Name, "P4");
@@ -69,7 +69,7 @@ namespace SportsStore.UnitTests
 
             ProductController controller = new ProductController(mock.Object) { PageSize = 3 };
 
-            ProductsListViewModel result = (ProductsListViewModel)controller.List(null, 2).Model;
+            ProductsListViewModel result = (ProductsListViewModel)controller.List(null, null, 2).Model;
 
             PagingInfo pageInfo = result.PagingInfo;
             Assert.AreEqual(pageInfo.CurrentPage, 2);

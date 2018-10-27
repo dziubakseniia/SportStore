@@ -7,11 +7,11 @@
 <p>Please enter your details, and we'll ship your goods right away!</p>
 @using (Html.BeginForm())
 {
-    @Html.ValidationSummary()
     <h3>Ship to</h3>
-    <div class="form-group">
-        <label>Name:</label>
-        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+    <p>Name:</p>
+    <div class="form-group row">
+        <p class="col-sm-8">@Html.TextBoxFor(x => x.Name, new { @class = "form-control" })</p>
+        <p>@Html.ValidationMessageFor(x => x.Name)</p>
     </div>
 
     <h3>Address</h3>
@@ -19,14 +19,15 @@
     {
         if (property.PropertyName != "Name" && property.PropertyName != "GiftWrap")
         {
-            <div class="form-group">
-                <label>@(property.DisplayName ?? property.PropertyName)</label>
-                @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+            <label>@(property.DisplayName ?? property.PropertyName)</label>
+            <div class="form-group row">
+                <p class="col-sm-8">@Html.TextBox(property.PropertyName, null, new {@class = "form-control"})</p>
+                <p>@Html.ValidationMessage(property.PropertyName)</p>
             </div>
         }
     }
     <h3>Options</h3>
-    <div class="checkbox">
+    <div type="checkbox">
         <label>
             @Html.EditorFor(x => x.GiftWrap)
             Gift wrap these items

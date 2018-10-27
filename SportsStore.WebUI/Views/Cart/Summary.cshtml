@@ -1,19 +1,22 @@
 ﻿@model SportsStore.Domain.Entities.Cart
 
-<div class="navbar-right hidden-xs">
+<div class="navbar-right d-none d-sm-block">
+    <div class="navbar-text">
+        <strong>Your cart:</strong>
+        @Model.Lines.Sum(x => x.Quantity) item(s),
+        @Model.ComputeTotalValue().ToString("c")
+    </div>
     @Html.ActionLink("Checkout", "Index", "Cart",
-        new{returnUrl = Request.Url.PathAndQuery},
-        new{@class="btn btn-default navbar-btn"})
+        new {returnUrl = Request.Url.PathAndQuery},
+        new {@class = "btn btn-secondary btn-outline-primary"})
 </div>
 
-<div class="navbar-right visible-xs">
-    <a href="@Url.Action("Index", "Cart", new {returnUrl = Request.Url.PathAndQuery})" class="btn btn-default navbar-btn">
-        <span class="glyphicon glyphicon-shopping-cart"></span>
+<div class="navbar-right d-block d-sm-none">
+    <div class="navbar-text">
+        @Model.Lines.Sum(x => x.Quantity) item(s),
+        @Model.ComputeTotalValue().ToString("c")
+    </div>
+    <a href="@Url.Action("Index", "Cart", new {returnUrl = Request.Url.PathAndQuery})" class="btn btn-secondary btn-outline-primary">
+        <span class="fas fa-shopping-cart"></span>
     </a>
-</div>
-
-<div class="navbar-text navbar-right">
-    <strong class="hidden-xs">Your cart:</strong>
-    @Model.Lines.Sum(x => x.Quantity) item(s),
-    @Model.ComputeTotalValue().ToString("c")
 </div>

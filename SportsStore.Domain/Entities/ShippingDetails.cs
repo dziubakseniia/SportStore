@@ -4,19 +4,19 @@ namespace SportsStore.Domain.Entities
 {
     public class ShippingDetails
     {
-        [Required(ErrorMessage = "Please enter a name")]
+        [Required(ErrorMessage = "Your name is required.")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Please enter the first address line")]
+        [Required(ErrorMessage = "Your address is required.")]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "Please enter the city name")]
+        [Required(ErrorMessage = "Your city is required.")]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "Please enter a country name")]
+        [Required(ErrorMessage = "Your country is required.")]
         public string Country { get; set; }
 
-        [Required(ErrorMessage = "Please enter your Email")]
+        [Required(ErrorMessage = "Your email is required.")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 

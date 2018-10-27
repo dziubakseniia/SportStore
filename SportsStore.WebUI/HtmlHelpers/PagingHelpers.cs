@@ -17,12 +17,14 @@ namespace SportsStore.WebUI.HtmlHelpers
                 TagBuilder tag = new TagBuilder("a");
                 tag.MergeAttribute("href", pageUrl(i));
                 tag.InnerHtml = i.ToString();
+                tag.AddCssClass("border");
+                tag.AddCssClass("border-primary");
                 if (i == pagingInfo.CurrentPage)
                 {
                     tag.AddCssClass("selected");
                     tag.AddCssClass("btn-primary");
                 }
-                tag.AddCssClass("btn btn-default");
+                tag.AddCssClass("btn");
                 result.Append(tag);
             }
 
