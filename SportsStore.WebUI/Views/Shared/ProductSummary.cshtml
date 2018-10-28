@@ -14,11 +14,16 @@
                 {
                     @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
                 }
-                <input type="submit" class="btn btn-sm btn-success" value="Add to cart" />
+                @if (Model.Quantity != 0)
+                {
+                    <input type="submit" class="btn btn-sm btn-success" value="Add to cart" />
+                }
             </div>
         }
         <span class="lead">
             @Model.Description
+            <br />
+            <label>Left in stock:</label> @Model.Quantity
         </span>
     </div>
 </div>

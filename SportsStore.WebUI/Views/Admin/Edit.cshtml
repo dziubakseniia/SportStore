@@ -1,0 +1,54 @@
+﻿@model SportsStore.Domain.Entities.Product
+
+@{
+    ViewBag.Title = "Admin: Edit " + @Model.Name;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3>Edit @Model.Name</h3>
+    </div>
+
+    @using (Html.BeginForm("Edit", "Admin"))
+    {
+        <div class="card-body">
+            @Html.HiddenFor(m => m.ProductId)
+            @foreach (var property in ViewData.ModelMetadata.Properties)
+            {
+                if (property.PropertyName != "ProductId" && property.PropertyName != "DateOfAddition")
+                {
+                    <label>@(property.DisplayName ?? property.PropertyName)</label>
+                    <div class="form-group row">
+                        @if (property.PropertyName == "Description")
+                        {
+                            <p class="col-sm-6">
+                                @Html.TextArea(property.PropertyName, null, new
+                                  {
+                                      @class = "form-control", rows = 5
+                                  })
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="col-sm-6">
+                                @Html.TextBox(property.PropertyName, null, new
+                                  {
+                                      @class = "form-control"
+                                  })
+                            </p>
+                        }
+                        <p>@Html.ValidationMessage(property.PropertyName)</p>
+                    </div>
+                }
+            }
+        </div>
+        <div class="card-footer">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            @Html.ActionLink("Cancel and return to list", "Index", null, new
+            {
+                @class="btn btn-secondary"
+            })
+        </div>
+    }
+</div>

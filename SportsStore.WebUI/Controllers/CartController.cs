@@ -68,6 +68,17 @@ namespace SportsStore.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 _orderProcessor.ProcessOrder(cart, shippingDetails);
+                foreach (var line in cart.Lines)
+                {
+                    foreach (var product in _repository.Products)
+                    {
+                        if (product.ProductId == line.Product.ProductId)
+                        {
+                            product.Quantity -= line.Quantity;
+                        }
+                    }
+                }
+                _repository.UpdateProduct();
                 cart.Clear();
                 return View("Completed");
             }
