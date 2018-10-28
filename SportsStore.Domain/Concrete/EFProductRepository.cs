@@ -35,6 +35,8 @@ namespace SportsStore.Domain.Concrete
                     dbEntry.Description = product.Description;
                     dbEntry.DateOfAddition = product.DateOfAddition;
                     dbEntry.Quantity = product.Quantity;
+                    dbEntry.ImageData = product.ImageData;
+                    dbEntry.ImageMimeType = product.ImageMimeType;
                 }
             }
 

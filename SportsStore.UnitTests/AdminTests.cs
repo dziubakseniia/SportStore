@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,7 +16,7 @@ namespace SportsStore.UnitTests
         public void Index_Contains_All_Products()
         {
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
-            mock.Setup(m => m.Products).Returns(new Product[]
+            mock.Setup(m => m.Products).Returns(new[]
             {
                 new Product {ProductId = 1, Name = "P1"},
                 new Product {ProductId = 2, Name = "P2"},
@@ -38,7 +37,7 @@ namespace SportsStore.UnitTests
         public void Can_Edit_Product()
         {
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
-            mock.Setup(m => m.Products).Returns(new Product[]
+            mock.Setup(m => m.Products).Returns(new[]
             {
                 new Product {ProductId = 1, Name = "P1"},
                 new Product {ProductId = 2, Name = "P2"},
@@ -51,16 +50,16 @@ namespace SportsStore.UnitTests
             Product product2 = target.Edit(2).ViewData.Model as Product;
             Product product3 = target.Edit(3).ViewData.Model as Product;
 
-            Assert.AreEqual(1, product1.ProductId);
-            Assert.AreEqual(2, product2.ProductId);
-            Assert.AreEqual(3, product3.ProductId);
+            if (product1 != null) Assert.AreEqual(1, product1.ProductId);
+            if (product2 != null) Assert.AreEqual(2, product2.ProductId);
+            if (product3 != null) Assert.AreEqual(3, product3.ProductId);
         }
 
         [TestMethod]
         public void Cannot_Edit_Nonexistent_Product()
         {
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
-            mock.Setup(m => m.Products).Returns(new Product[]
+            mock.Setup(m => m.Products).Returns(new[]
             {
                 new Product {ProductId = 1, Name = "P1"},
                 new Product {ProductId = 2, Name = "P2"},
@@ -113,7 +112,7 @@ namespace SportsStore.UnitTests
             Product product = new Product { ProductId = 2, Name = "Test" };
 
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
-            mock.Setup(m => m.Products).Returns(new Product[]
+            mock.Setup(m => m.Products).Returns(new[]
             {
                 new Product {ProductId = 1, Name = "P1"},
                 product,

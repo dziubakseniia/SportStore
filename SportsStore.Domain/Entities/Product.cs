@@ -30,5 +30,8 @@ namespace SportsStore.Domain.Entities
         [Required(ErrorMessage = "Please enter a quantity.")]
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a positive quantity.")]
         public int Quantity { get; set; }
+
+        public byte[] ImageData { get; set; }
+        public string ImageMimeType { get; set; }
     }
 }

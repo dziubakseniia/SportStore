@@ -103,5 +103,18 @@ namespace SportsStore.WebUI.Controllers
                  .Skip((page - 1) * PageSize)
                  .Take(PageSize);
         }
+
+        public FileContentResult GetImage(int productId)
+        {
+            Product product = _repository.Products.FirstOrDefault(p => p.ProductId == productId);
+            if (product != null)
+            {
+                return File(product.ImageData, product.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

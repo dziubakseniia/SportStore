@@ -10,38 +10,65 @@
         <h3>Edit @Model.Name</h3>
     </div>
 
-    @using (Html.BeginForm("Edit", "Admin"))
+    @using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="card-body">
             @Html.HiddenFor(m => m.ProductId)
             @foreach (var property in ViewData.ModelMetadata.Properties)
             {
-                if (property.PropertyName != "ProductId" && property.PropertyName != "DateOfAddition")
+                switch (property.PropertyName)
                 {
-                    <label>@(property.DisplayName ?? property.PropertyName)</label>
-                    <div class="form-group row">
-                        @if (property.PropertyName == "Description")
+                    case "ProdectId":
+                    case "ImageData":
+                    case "ImageMimeType":
+                        break;
+                    default:
+                        if (property.PropertyName != "ProductId" && property.PropertyName != "DateOfAddition")
                         {
-                            <p class="col-sm-6">
-                                @Html.TextArea(property.PropertyName, null, new
-                                  {
-                                      @class = "form-control", rows = 5
-                                  })
-                            </p>
+                            <label>@(property.DisplayName ?? property.PropertyName)</label>
+                            <div class="form-group row">
+                                @if (property.PropertyName == "Description")
+                                {
+                                    <p class="col-sm-6">
+                                        @Html.TextArea(property.PropertyName, null, new
+                                        {
+                                            @class = "form-control", rows = 5
+                                        })
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p class="col-sm-6">
+                                        @Html.TextBox(property.PropertyName, null, new
+                                        {
+                                            @class = "form-control"
+                                        })
+                                    </p>
+                                }
+                                <p>@Html.ValidationMessage(property.PropertyName)</p>
+                            </div>
                         }
-                        else
-                        {
-                            <p class="col-sm-6">
-                                @Html.TextBox(property.PropertyName, null, new
-                                  {
-                                      @class = "form-control"
-                                  })
-                            </p>
-                        }
-                        <p>@Html.ValidationMessage(property.PropertyName)</p>
-                    </div>
+                        break;
                 }
             }
+            <div class="form-group">
+                <div style="position: relative;">
+                    <label>Image</label>
+                    <a href="javascript:onchange();" class="btn">
+                        Choose File...
+                        <input type="file" name="Image" size="40" style="position: absolute; z-index: 2; top: 0; filter: alpha(opacity=0); opacity: 0; background-color: transparent;" onchange='$("#upload-file-info").html($(this).val());' />
+                    </a>
+                    <label id="upload-file-info"></label>
+                </div>
+                @if (Model.ImageData == null)
+                {
+                    <div class="form-control-plaintext">No Image</div>
+                }
+                else
+                {
+                    <img class="img-thumbnail" width="150" height="150" src="@Url.Action("GetImage", "Product", new {Model.ProductId})" />
+                }
+            </div>
         </div>
         <div class="card-footer">
             <input type="submit" value="Save" class="btn btn-primary" />
