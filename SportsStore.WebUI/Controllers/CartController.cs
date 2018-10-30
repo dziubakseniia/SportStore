@@ -58,7 +58,7 @@ namespace SportsStore.WebUI.Controllers
         }
 
         [HttpPost]
-        public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails)
+        public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails, Order order)
         {
             if (!cart.Lines.Any())
             {
@@ -67,7 +67,7 @@ namespace SportsStore.WebUI.Controllers
 
             if (ModelState.IsValid)
             {
-                _orderProcessor.ProcessOrder(cart, shippingDetails);
+                _orderProcessor.ProcessOrder(cart, shippingDetails, order);
                 foreach (var line in cart.Lines)
                 {
                     foreach (var product in _repository.Products)

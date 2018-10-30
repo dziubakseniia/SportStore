@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
 using SportsStore.Domain.Abstract;
@@ -6,16 +7,25 @@ using SportsStore.Domain.Entities;
 
 namespace SportsStore.Domain.Concrete
 {
-    public class EmailOrderProcessor : IOrderProcessor
+    public class EfOrderProcessor : IOrderProcessor
     {
         private EmailSettings _emailSettings;
+        private EfDbContext _context = new EfDbContext();
 
-        public EmailOrderProcessor(EmailSettings emailSettings)
+        public EfOrderProcessor(EmailSettings emailSettings)
         {
             _emailSettings = emailSettings;
         }
 
-        public void ProcessOrder(Cart cart, ShippingDetails shippingDetails)
+        public IEnumerable<Order> Orders
+        {
+            get
+            {
+                return _context.Orders;
+            }
+        }
+
+        public void ProcessOrder(Cart cart, ShippingDetails shippingDetails, Order order)
         {
             using (var smtpClient = new SmtpClient())
             {
@@ -51,7 +61,42 @@ namespace SportsStore.Domain.Concrete
                                                           "new order submitted!",
                                                           body.ToString());
                 smtpClient.Send(mailMessage);
+
+                body = new StringBuilder();
+
+                body.AppendFormat("Total order value: {0:c}\n", cart.ComputeTotalValue())
+                    .AppendLine("Ship to:")
+                    .AppendLine(shippingDetails.Name + "\n")
+                    .AppendLine("Address:\n")
+                    .AppendLine(shippingDetails.Address + "\n")
+                    .AppendLine(shippingDetails.City + "\n")
+                    .AppendLine(shippingDetails.Country + "\n")
+                    .AppendFormat("Gift wrap: {0}", shippingDetails.GiftWrap ? "Yes" : "No");
+
+                order = new Order();
+                order.Status = "Registered";
+                order.Info = body.ToString();
+
+                SaveOrder(order);
             }
+        }
+
+        public void SaveOrder(Order order)
+        {
+            if (order.OrderId == 0)
+            {
+                _context.Orders.Add(order);
+            }
+            else
+            {
+                Order dbEntry = _context.Orders.Find(order.OrderId);
+                if (dbEntry != null)
+                {
+                    dbEntry.Status = order.Status;
+                    dbEntry.Info = order.Info;
+                }
+            }
+            _context.SaveChanges();
         }
     }
 }

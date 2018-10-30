@@ -107,13 +107,14 @@ namespace SportsStore.WebUI.Controllers
         public FileContentResult GetImage(int productId)
         {
             Product product = _repository.Products.FirstOrDefault(p => p.ProductId == productId);
-            if (product != null)
+            byte[] defaultImage = System.IO.File.ReadAllBytes(HttpContext.Server.MapPath("~/Content/no-image-landscape.png"));
+            if (product != null && product.ImageData != null)
             {
                 return File(product.ImageData, product.ImageMimeType);
             }
             else
             {
-                return null;
+                return new FileContentResult(defaultImage, "image/png");
             }
         }
     }

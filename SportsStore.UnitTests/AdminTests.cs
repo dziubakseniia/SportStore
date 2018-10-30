@@ -16,6 +16,7 @@ namespace SportsStore.UnitTests
         public void Index_Contains_All_Products()
         {
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            Mock<IOrderProcessor> mockOrder = new Mock<IOrderProcessor>();
             mock.Setup(m => m.Products).Returns(new[]
             {
                 new Product {ProductId = 1, Name = "P1"},
@@ -23,7 +24,7 @@ namespace SportsStore.UnitTests
                 new Product {ProductId = 3, Name = "P3"}
             });
 
-            AdminController target = new AdminController(mock.Object);
+            AdminController target = new AdminController(mock.Object, mockOrder.Object);
 
             Product[] result = ((IEnumerable<Product>)target.Index().ViewData.Model).ToArray();
 
@@ -37,6 +38,7 @@ namespace SportsStore.UnitTests
         public void Can_Edit_Product()
         {
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            Mock<IOrderProcessor> mockOrder = new Mock<IOrderProcessor>();
             mock.Setup(m => m.Products).Returns(new[]
             {
                 new Product {ProductId = 1, Name = "P1"},
@@ -44,7 +46,7 @@ namespace SportsStore.UnitTests
                 new Product {ProductId = 3, Name = "P3"}
             });
 
-            AdminController target = new AdminController(mock.Object);
+            AdminController target = new AdminController(mock.Object, mockOrder.Object);
 
             Product product1 = target.Edit(1).ViewData.Model as Product;
             Product product2 = target.Edit(2).ViewData.Model as Product;
@@ -59,6 +61,7 @@ namespace SportsStore.UnitTests
         public void Cannot_Edit_Nonexistent_Product()
         {
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            Mock<IOrderProcessor> mockOrder = new Mock<IOrderProcessor>();
             mock.Setup(m => m.Products).Returns(new[]
             {
                 new Product {ProductId = 1, Name = "P1"},
@@ -66,7 +69,7 @@ namespace SportsStore.UnitTests
                 new Product {ProductId = 3, Name = "P3"}
             });
 
-            AdminController target = new AdminController(mock.Object);
+            AdminController target = new AdminController(mock.Object, mockOrder.Object);
 
             Product result = (Product)target.Edit(4).ViewData.Model;
 
@@ -77,8 +80,9 @@ namespace SportsStore.UnitTests
         public void Can_Save_Valid_Changes()
         {
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            Mock<IOrderProcessor> mockOrder = new Mock<IOrderProcessor>();
 
-            AdminController target = new AdminController(mock.Object);
+            AdminController target = new AdminController(mock.Object, mockOrder.Object);
 
             Product product = new Product { Name = "Test" };
 
@@ -92,8 +96,9 @@ namespace SportsStore.UnitTests
         public void Cannot_Save_Invalid_Changes()
         {
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            Mock<IOrderProcessor> mockOrder = new Mock<IOrderProcessor>();
 
-            AdminController target = new AdminController(mock.Object);
+            AdminController target = new AdminController(mock.Object, mockOrder.Object);
 
             Product product = new Product { Name = "Test" };
 
@@ -112,6 +117,7 @@ namespace SportsStore.UnitTests
             Product product = new Product { ProductId = 2, Name = "Test" };
 
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            Mock<IOrderProcessor> mockOrder = new Mock<IOrderProcessor>();
             mock.Setup(m => m.Products).Returns(new[]
             {
                 new Product {ProductId = 1, Name = "P1"},
@@ -119,7 +125,7 @@ namespace SportsStore.UnitTests
                 new Product {ProductId = 3, Name = "P3"}
             });
 
-            AdminController target = new AdminController(mock.Object);
+            AdminController target = new AdminController(mock.Object, mockOrder.Object);
             target.Delete(product.ProductId);
             mock.Verify(m => m.DeleteProduct(product.ProductId));
         }

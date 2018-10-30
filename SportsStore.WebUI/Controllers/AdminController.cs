@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SportsStore.Domain.Abstract;
@@ -10,10 +11,12 @@ namespace SportsStore.WebUI.Controllers
     public class AdminController : Controller
     {
         private IProductRepository _repository;
+        private IOrderProcessor _orderProcessor;
 
-        public AdminController(IProductRepository repository)
+        public AdminController(IProductRepository repository, IOrderProcessor orderProcessor)
         {
             _repository = repository;
+            _orderProcessor = orderProcessor;
         }
 
         public ViewResult Index()
@@ -63,6 +66,31 @@ namespace SportsStore.WebUI.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        public ViewResult Orders()
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem{Text = "registered", Value = "registered"});
+            items.Add(new SelectListItem{Text = "paid", Value = "paid" });
+            items.Add(new SelectListItem{Text = "canceled", Value = "canceled" });
+
+            ViewBag.Status = items;
+
+            return View(_orderProcessor.Orders);
+        }
+
+        public ActionResult SaveStatus(int orderId, string Status)
+        {
+            Order order = _orderProcessor.Orders.FirstOrDefault(o => o.OrderId == orderId);
+            if (order != null)
+            {
+                order.Status = Status;
+                _orderProcessor.SaveOrder(order);
+                TempData["message"] = "Order status was changed";
+            }
+
+            return RedirectToAction("Orders");
         }
     }
 }

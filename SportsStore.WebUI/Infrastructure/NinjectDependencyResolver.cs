@@ -33,7 +33,7 @@ namespace SportsStore.WebUI.Infrastructure
         {
             _kernel.Bind<IProductRepository>().To<EfProductRepository>();
 
-            _kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>()
+            _kernel.Bind<IOrderProcessor>().To<EfOrderProcessor>()
                 .WithConstructorArgument("settings", "emailSettings");
 
             _kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();

@@ -145,10 +145,11 @@ namespace SportsStore.UnitTests
             Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
             Cart cart = new Cart();
             ShippingDetails shippingDetails = new ShippingDetails();
+            Order order = new Order();
             CartController target = new CartController(null, mock.Object);
 
-            ViewResult result = target.Checkout(cart, shippingDetails);
-            mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Never);
+            ViewResult result = target.Checkout(cart, shippingDetails, order);
+            mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>(), It.IsAny<Order>()), Times.Never);
 
             Assert.AreEqual("", result.ViewName);
             Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
@@ -164,8 +165,8 @@ namespace SportsStore.UnitTests
             CartController target = new CartController(null, mock.Object);
             target.ModelState.AddModelError("error", "error");
 
-            ViewResult result = target.Checkout(cart, new ShippingDetails());
-            mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Never);
+            ViewResult result = target.Checkout(cart, new ShippingDetails(), new Order());
+            mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>(), It.IsAny<Order>()), Times.Never);
 
             Assert.AreEqual("", result.ViewName);
             Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
@@ -180,8 +181,8 @@ namespace SportsStore.UnitTests
 
             CartController target = new CartController(null, mock.Object);
 
-            ViewResult result = target.Checkout(cart, new ShippingDetails());
-            mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Once);
+            ViewResult result = target.Checkout(cart, new ShippingDetails(), new Order());
+            mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>(), It.IsAny<Order>()), Times.Once);
 
             Assert.AreEqual("Completed", result.ViewName);
             Assert.AreEqual(true, result.ViewData.ModelState.IsValid);

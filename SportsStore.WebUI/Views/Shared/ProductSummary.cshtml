@@ -2,15 +2,15 @@
 
 <div class="card">
     <div class="card-body">
-        @if (Model.ImageData != null)
-        {
+        @*@if (Model.ImageData != null)
+        {*@
             <div class="float-left" style="margin-right: 10px">
-                <img class="img-thumbnail" width="75" height="75" src="@Url.Action("GetImage", "Product", new
+                <img class="img-thumbnail" width="150" height="150" src="@Url.Action("GetImage", "Product", new
                                                                        {
                                                                            Model.ProductId
                                                                        })" />
             </div>
-        }
+        @*}*@
         <h3>
             <strong>@Model.Name</strong>
             <span class="float-right">@Model.Price.ToString("c")</span>
