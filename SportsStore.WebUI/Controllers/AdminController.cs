@@ -1,9 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using SportsStore.Domain.Abstract;
+using SportsStore.Domain.Concrete;
 using SportsStore.Domain.Entities;
+using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Controllers
 {
@@ -71,9 +76,9 @@ namespace SportsStore.WebUI.Controllers
         public ViewResult Orders()
         {
             List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem{Text = "registered", Value = "registered"});
-            items.Add(new SelectListItem{Text = "paid", Value = "paid" });
-            items.Add(new SelectListItem{Text = "canceled", Value = "canceled" });
+            items.Add(new SelectListItem { Text = "registered", Value = "registered" });
+            items.Add(new SelectListItem { Text = "paid", Value = "paid" });
+            items.Add(new SelectListItem { Text = "canceled", Value = "canceled" });
 
             ViewBag.Status = items;
 
@@ -92,5 +97,7 @@ namespace SportsStore.WebUI.Controllers
 
             return RedirectToAction("Orders");
         }
+
+        
     }
 }
