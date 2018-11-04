@@ -102,7 +102,7 @@ namespace SportsStore.UnitTests
 
             Product product = new Product { Name = "Test" };
 
-            target.ModelState.AddModelError("error", "error");
+            target.ModelState.AddModelError("error", @"error");
 
             ActionResult result = target.Edit(product);
 

@@ -1,0 +1,2 @@
+﻿ALTER TABLE [dbo].[Orders]
+ALTER COLUMN UserId INT NOT NULL;

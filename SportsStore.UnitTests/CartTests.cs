@@ -163,7 +163,7 @@ namespace SportsStore.UnitTests
             cart.AddItem(new Product(), 1);
 
             CartController target = new CartController(null, mock.Object);
-            target.ModelState.AddModelError("error", "error");
+            target.ModelState.AddModelError("error", @"error");
 
             ViewResult result = target.Checkout(cart, new ShippingDetails(), new Order());
             mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>(), It.IsAny<Order>()), Times.Never);

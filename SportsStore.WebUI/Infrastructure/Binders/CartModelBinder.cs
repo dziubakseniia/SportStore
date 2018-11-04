@@ -11,6 +11,7 @@ namespace SportsStore.WebUI.Infrastructure.Binders
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             Cart cart = null;
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (controllerContext.HttpContext.Session != null)
             {
                 cart = (Cart)controllerContext.HttpContext.Session[SessionKey];
@@ -19,6 +20,7 @@ namespace SportsStore.WebUI.Infrastructure.Binders
             if (cart == null)
             {
                 cart = new Cart();
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
                 if (controllerContext.HttpContext.Session != null)
                 {
                     controllerContext.HttpContext.Session[SessionKey] = cart;

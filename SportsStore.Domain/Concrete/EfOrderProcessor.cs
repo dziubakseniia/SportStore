@@ -2,8 +2,12 @@
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Web;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
+using SportsStore.Domain.Identity.Concrete;
 
 namespace SportsStore.Domain.Concrete
 {
@@ -76,9 +80,15 @@ namespace SportsStore.Domain.Concrete
                 order = new Order();
                 order.Status = "Registered";
                 order.Info = body.ToString();
+                order.UserId = CurrentUserManager.Id;
 
                 SaveOrder(order);
             }
+        }
+
+        public User CurrentUserManager
+        {
+            get { return HttpContext.Current.GetOwinContext().GetUserManager<EfUserManager>().FindById(HttpContext.Current.User.Identity.GetUserId()); }
         }
 
         public void SaveOrder(Order order)

@@ -1,7 +1,12 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
+using SportsStore.Domain.Identity.Concrete;
 using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Controllers
@@ -62,7 +67,7 @@ namespace SportsStore.WebUI.Controllers
         {
             if (!cart.Lines.Any())
             {
-                ModelState.AddModelError("", "Sorry, your cart is empty!");
+                ModelState.AddModelError("", @"Sorry, your cart is empty!");
             }
 
             if (ModelState.IsValid)
@@ -86,6 +91,17 @@ namespace SportsStore.WebUI.Controllers
             {
                 return View(shippingDetails);
             }
+        }
+
+        public ViewResult UserOrders(string returnurl)
+        {
+            IEnumerable<Order> orders = _orderProcessor.Orders.Where(o => o.UserId == CurrentUserManager.Id);
+            return View(orders);
+        }
+
+        public User CurrentUserManager
+        {
+            get { return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<EfUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()); }
         }
     }
 }

@@ -1,22 +1,45 @@
 ﻿@model SportsStore.Domain.Entities.Cart
 
-<div class="navbar-right d-none d-sm-block">
-    <div class="navbar-text">
-        <strong>Your cart:</strong>
-        @Model.Lines.Sum(x => x.Quantity) item(s),
-        @Model.ComputeTotalValue().ToString("c")
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="navbar-right d-none d-sm-block">
+        <div class="navbar-text">
+            <strong>Your cart:</strong>
+            @Model.Lines.Sum(x => x.Quantity) item(s),
+            @Model.ComputeTotalValue().ToString("c")
+        </div>
+        @Html.ActionLink("Checkout", "Index", "Cart",
+            new {returnUrl = Request.Url.PathAndQuery},
+            new {@class = "btn btn-secondary btn-outline-primary"})
     </div>
-    @Html.ActionLink("Checkout", "Index", "Cart",
-        new {returnUrl = Request.Url.PathAndQuery},
-        new {@class = "btn btn-secondary btn-outline-primary"})
-</div>
 
-<div class="navbar-right d-block d-sm-none">
-    <div class="navbar-text">
-        @Model.Lines.Sum(x => x.Quantity) item(s),
-        @Model.ComputeTotalValue().ToString("c")
+    <div class="navbar-right d-block d-sm-none">
+        <div class="navbar-text">
+            @Model.Lines.Sum(x => x.Quantity) item(s),
+            @Model.ComputeTotalValue().ToString("c")
+        </div>
+        <a href="@Url.Action("Index", "Cart", new {returnUrl = Request.Url.PathAndQuery})" class="btn btn-secondary btn-outline-primary">
+            <span class="fas fa-shopping-cart"></span>
+        </a>
     </div>
-    <a href="@Url.Action("Index", "Cart", new {returnUrl = Request.Url.PathAndQuery})" class="btn btn-secondary btn-outline-primary">
-        <span class="fas fa-shopping-cart"></span>
-    </a>
+}
+
+<div class="navbar-right d-none d-sm-block">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a href="@Url.Action("UserOrders", "Cart", new {returnUrl = Request.Url.PathAndQuery})" class="btn btn-secondary btn-outline-primary">
+            <span>My Orders</span>
+        </a>
+        <label class="navbar-text">Logout</label>
+        <a href="@Url.Action("Logout", "Account", new {returnUrl = Request.Url.PathAndQuery})" class="btn btn-outline-secondary">
+            <span class="fas fa-sign-out-alt"></span>
+        </a>
+    }
+    else
+    {
+        <label class="navbar-text">Login</label>
+        <a href="@Url.Action("Login", "Account", new {returnUrl = Request.Url.PathAndQuery})" class="btn btn-outline-secondary">
+            <span class="fas fa-sign-in-alt"></span>
+        </a>
+    }
 </div>

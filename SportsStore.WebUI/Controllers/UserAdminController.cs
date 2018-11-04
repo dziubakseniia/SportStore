@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using SportsStore.Domain.Concrete;
 using SportsStore.Domain.Entities;
+using SportsStore.Domain.Identity.Concrete;
 using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Controllers
 {
+    [Authorize(Roles = "Administrators")]
     public class UserAdminController : Controller
     {
         public ActionResult Users()
@@ -34,7 +32,7 @@ namespace SportsStore.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { UserName = model.UserName, Email = model.Email };
+                User user = new User { UserName = model.UserName, Email = model.Email, Status = Status.Unlocked};
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -112,8 +110,8 @@ namespace SportsStore.WebUI.Controllers
                     }
                 }
 
-                if ((validEmail.Succeeded && validPassword != null) ||
-                    validEmail.Succeeded && password != string.Empty && validPassword.Succeeded)
+                if (validPassword != null && ((validEmail.Succeeded) ||
+                                              validEmail.Succeeded && password != string.Empty && validPassword.Succeeded))
                 {
                     IdentityResult result = await UserManager.UpdateAsync(user);
                     if (result.Succeeded)
@@ -129,7 +127,7 @@ namespace SportsStore.WebUI.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "User not found");
+                ModelState.AddModelError("", @"User not found");
             }
 
             return View(user);
@@ -141,6 +139,40 @@ namespace SportsStore.WebUI.Controllers
             {
                 ModelState.AddModelError("", error);
             }
+        }
+
+        public async Task<ActionResult> ChangeStatus(string id)
+        {
+            User user = await UserManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("Users");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ChangeStatus(string id, Status status)
+        {
+            User user = await UserManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                user.Status = status;
+                IdentityResult result = await UserManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    TempData["message"] = string.Format("{0} has been changed successfully", user.UserName);
+                    return RedirectToAction("Users");
+                }
+                else
+                {
+                    AddErrorsFromResult(result);
+                }
+            }
+            return RedirectToAction("Users");
         }
     }
 }

@@ -1,18 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using SportsStore.Domain.Abstract;
-using SportsStore.Domain.Concrete;
 using SportsStore.Domain.Entities;
-using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrators")]
     public class AdminController : Controller
     {
         private IProductRepository _repository;
@@ -76,21 +71,21 @@ namespace SportsStore.WebUI.Controllers
         public ViewResult Orders()
         {
             List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = "registered", Value = "registered" });
-            items.Add(new SelectListItem { Text = "paid", Value = "paid" });
-            items.Add(new SelectListItem { Text = "canceled", Value = "canceled" });
+            items.Add(new SelectListItem { Text = @"registered", Value = "registered" });
+            items.Add(new SelectListItem { Text = @"paid", Value = "paid" });
+            items.Add(new SelectListItem { Text = @"canceled", Value = "canceled" });
 
             ViewBag.Status = items;
 
             return View(_orderProcessor.Orders);
         }
 
-        public ActionResult SaveStatus(int orderId, string Status)
+        public ActionResult SaveStatus(int orderId, string status)
         {
             Order order = _orderProcessor.Orders.FirstOrDefault(o => o.OrderId == orderId);
             if (order != null)
             {
-                order.Status = Status;
+                order.Status = status;
                 _orderProcessor.SaveOrder(order);
                 TempData["message"] = "Order status was changed";
             }

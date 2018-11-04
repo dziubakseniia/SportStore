@@ -130,11 +130,28 @@
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ShippingDetails.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Migrations\201810311950153_InitialCreate.cs" />
+    <Compile Include="Migrations\201810311950153_InitialCreate.Designer.cs">
+      <DependentUpon>201810311950153_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811041649103_StatusProperty.cs" />
+    <Compile Include="Migrations\201811041649103_StatusProperty.Designer.cs">
+      <DependentUpon>201811041649103_StatusProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201810311950153_InitialCreate.resx">
+      <DependentUpon>201810311950153_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811041649103_StatusProperty.resx">
+      <DependentUpon>201811041649103_StatusProperty.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

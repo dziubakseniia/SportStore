@@ -4,7 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using SportsStore.Domain.Entities;
 
-namespace SportsStore.Domain.Concrete
+namespace SportsStore.Domain.Identity.Concrete
 {
     public class EfUserManager : UserManager<User>
     {

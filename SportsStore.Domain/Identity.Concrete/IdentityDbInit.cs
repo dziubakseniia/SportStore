@@ -1,18 +1,7 @@
 ﻿using System.Data.Entity;
 
-namespace SportsStore.Domain.Concrete
+namespace SportsStore.Domain.Identity.Concrete
 {
-    public class IdentityDbInit : DropCreateDatabaseIfModelChanges<EfIdentityDbContext>
-    {
-        protected override void Seed(EfIdentityDbContext context)
-        {
-            PerformInitialSetup(context);
-            base.Seed(context);
-        }
-
-        private void PerformInitialSetup(EfIdentityDbContext context)
-        {
-
-        }
-    }
+    public class IdentityDbInit : NullDatabaseInitializer<EfIdentityDbContext>
+    {}
 }

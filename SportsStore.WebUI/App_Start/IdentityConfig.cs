@@ -2,7 +2,7 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using SportsStore.Domain.Concrete;
+using SportsStore.Domain.Identity.Concrete;
 
 namespace SportsStore.WebUI
 {
@@ -10,7 +10,7 @@ namespace SportsStore.WebUI
     {
         public void Configuration(IAppBuilder app)
         {
-            app.CreatePerOwinContext<EfIdentityDbContext>(EfIdentityDbContext.Create);
+            app.CreatePerOwinContext(EfIdentityDbContext.Create);
             app.CreatePerOwinContext<EfUserManager>(EfUserManager.Create);
             app.CreatePerOwinContext<EfRoleManager>(EfRoleManager.Create);
 

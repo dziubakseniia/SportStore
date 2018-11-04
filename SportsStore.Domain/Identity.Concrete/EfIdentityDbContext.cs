@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using SportsStore.Domain.Entities;
-using System.Data.Entity;
 
-namespace SportsStore.Domain.Concrete
+namespace SportsStore.Domain.Identity.Concrete
 {
     public class EfIdentityDbContext : IdentityDbContext<User>
     {
@@ -12,7 +12,7 @@ namespace SportsStore.Domain.Concrete
 
         static EfIdentityDbContext()
         {
-            Database.SetInitializer<EfIdentityDbContext>(new IdentityDbInit());
+            Database.SetInitializer(new IdentityDbInit());
         }
 
         public static EfIdentityDbContext Create()

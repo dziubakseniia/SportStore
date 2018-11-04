@@ -1,7 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
-using SportsStore.Domain.Concrete;
 
 namespace SportsStore.Domain.Identity.Concrete
 {

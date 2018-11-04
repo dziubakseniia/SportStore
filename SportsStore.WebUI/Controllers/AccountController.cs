@@ -1,17 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using SportsStore.Domain.Abstract;
-using SportsStore.Domain.Concrete;
 using SportsStore.Domain.Entities;
-using SportsStore.WebUI.Infrastructure.Abstract;
+using SportsStore.Domain.Identity.Concrete;
 using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Controllers
@@ -36,7 +31,7 @@ namespace SportsStore.WebUI.Controllers
                 User user = await UserManager.FindAsync(details.Name, details.Password);
                 if (user == null)
                 {
-                    ModelState.AddModelError("", "Invalid name or password");
+                    ModelState.AddModelError("", @"Invalid name or password");
                 }
                 else
                 {
@@ -50,6 +45,13 @@ namespace SportsStore.WebUI.Controllers
 
             ViewBag.returnUrl = returnUrl;
             return View(details);
+        }
+
+        [Authorize]
+        public ActionResult Logout()
+        {
+            AuthManager.SignOut();
+            return RedirectToAction("List", "Product");
         }
 
         private IAuthenticationManager AuthManager

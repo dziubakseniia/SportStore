@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,12 +6,13 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using SportsStore.Domain.Concrete;
 using SportsStore.Domain.Entities;
+using SportsStore.Domain.Identity.Concrete;
 using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Controllers
 {
+    [Authorize(Roles = "Administrators")]
     public class RoleAdminController : Controller
     {
         public ActionResult Index()
@@ -33,7 +33,7 @@ namespace SportsStore.WebUI.Controllers
                 IdentityResult result = await RoleManager.CreateAsync(new EfRole(name));
                 if (result.Succeeded)
                 {
-                    RedirectToAction("Index");
+                    return RedirectToAction("Index");
                 }
                 else
                 {
@@ -41,7 +41,7 @@ namespace SportsStore.WebUI.Controllers
                 }
             }
 
-            return View("Error", new[] { "Can't create Role" });
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -53,7 +53,7 @@ namespace SportsStore.WebUI.Controllers
                 IdentityResult result = await RoleManager.DeleteAsync(role);
                 if (result.Succeeded)
                 {
-                    RedirectToAction("Index");
+                    return RedirectToAction("Index");
                 }
                 else
                 {
@@ -104,7 +104,7 @@ namespace SportsStore.WebUI.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("Error", new string[] { "Role not found" });
+            return View("Error", new[] { "Role not found" });
         }
 
         private void AddErrorsFromResult(IdentityResult result)

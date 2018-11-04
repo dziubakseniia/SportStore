@@ -2,32 +2,33 @@
 
 <div class="card">
     <div class="card-body">
-        @*@if (Model.ImageData != null)
-        {*@
-            <div class="float-left" style="margin-right: 10px">
-                <img class="img-thumbnail" width="150" height="150" src="@Url.Action("GetImage", "Product", new
+        <div class="float-left" style="margin-right: 10px">
+            <img class="img-thumbnail" width="150" height="150" src="@Url.Action("GetImage", "Product", new
                                                                        {
                                                                            Model.ProductId
                                                                        })" />
-            </div>
+        </div>
         @*}*@
         <h3>
             <strong>@Model.Name</strong>
             <span class="float-right">@Model.Price.ToString("c")</span>
         </h3>
-        @using (Html.BeginForm("AddToCart", "Cart"))
+        @if (User.Identity.IsAuthenticated)
         {
-            <div class="float-right">
-                @Html.HiddenFor(x => x.ProductId)
-                @if (Request.Url != null)
-                {
-                    @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-                }
-                @if (Model.Quantity != 0)
-                {
-                    <input type="submit" class="btn btn-sm btn-success" value="Add to cart" />
-                }
-            </div>
+            using (Html.BeginForm("AddToCart", "Cart"))
+            {
+                <div class="float-right">
+                    @Html.HiddenFor(x => x.ProductId)
+                    @if (Request.Url != null)
+                    {
+                        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                    }
+                    @if (Model.Quantity != 0)
+                    {
+                        <input type="submit" class="btn btn-sm btn-success" value="Add to cart" />
+                    }
+                </div>
+            }
         }
         <span class="lead">
             @Model.Description

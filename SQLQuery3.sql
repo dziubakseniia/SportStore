@@ -1,2 +1,2 @@
-﻿ALTER TABLE [dbo].[Products]
-ADD [Quantity] INT NOT NULL DEFAULT 0;
+﻿ALTER TABLE [dbo].[Orders]
+ALTER COLUMN UserId varchar(max) NOT NULL;

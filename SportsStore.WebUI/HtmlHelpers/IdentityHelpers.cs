@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
-using SportsStore.Domain.Concrete;
+using SportsStore.Domain.Identity.Concrete;
 
 namespace SportsStore.WebUI.HtmlHelpers
 {
