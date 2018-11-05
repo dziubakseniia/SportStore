@@ -11,7 +11,6 @@
            @class = (horizontal ? "btn btn-sm"
                : "btn btn-block btn-lg") + ("border border-primary") + (ViewBag.SelectedCategory == null ? " btn-primary" : "")
        })
-
     @foreach (var link in Model)
     {
         @Html.RouteLink(link, new

@@ -13,7 +13,7 @@
             <strong>@Model.Name</strong>
             <span class="float-right">@Model.Price.ToString("c")</span>
         </h3>
-        @if (User.Identity.IsAuthenticated)
+        @if (User.Identity.IsAuthenticated && !User.IsInRole("Blocked Users"))
         {
             using (Html.BeginForm("AddToCart", "Cart"))
             {

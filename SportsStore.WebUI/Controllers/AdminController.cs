@@ -21,6 +21,7 @@ namespace SportsStore.WebUI.Controllers
 
         public ViewResult Index()
         {
+            ViewBag.MenuType = "Products";
             return View(_repository.Products);
         }
 
@@ -70,6 +71,8 @@ namespace SportsStore.WebUI.Controllers
 
         public ViewResult Orders()
         {
+            ViewBag.MenuType = "Orders";
+
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = @"registered", Value = "registered" });
             items.Add(new SelectListItem { Text = @"paid", Value = "paid" });
@@ -93,6 +96,6 @@ namespace SportsStore.WebUI.Controllers
             return RedirectToAction("Orders");
         }
 
-        
+
     }
 }

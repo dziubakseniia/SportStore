@@ -8,20 +8,61 @@
     <meta name="viewport" content="width=device-width" />
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/ErrorStyles.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-3.3.1.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
     <title></title>
 </head>
 <body>
     <div>
-        @if (TempData["message"] != null)
-        {
-            <div class="alert alert-success">
-                @TempData["message"]
+        <div class="navbar navbar-dark bg-dark" role="navigation">
+            <a class="navbar-brand" href="#">
+                <span>SPORTS STORE</span>
+                <div class="navbar-right d-none d-sm-block">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <label class="navbar-text">Logout</label>
+                        <a href="@Url.Action("Logout", "Account", new {returnUrl = Request.Url.PathAndQuery})" class="btn btn-outline-secondary">
+                            <span class="fas fa-sign-out-alt"></span>
+                        </a>
+                    }
+                </div>
+            </a>
+        </div>
+
+        <div class="pt-4 pl-4">
+            @if (TempData["message"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["message"]
+                </div>
+            }
+            <div class="row">
+                <div class="nav flex-column nav-pills col-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    @Html.ActionLink("Products", "Index", "Admin", null, new
+                    {
+                        @class = "btn btn-block btn-lg border border-primary" + (ViewBag.MenuType == "Products" ? " btn-primary" : "")
+                    })
+                    @Html.ActionLink("Orders", "Orders", "Admin", null, new
+                    {
+                        @class = "btn btn-block btn-lg border border-primary" + (ViewBag.MenuType == "Orders" ? " btn-primary" : "")
+                    })
+                    @Html.ActionLink("Users", "Users", "UserAdmin", null, new
+                    {
+                        @class = "btn btn-block btn-lg border border-primary" + (ViewBag.MenuType == "Users" ? " btn-primary" : "")
+                    })
+                    @Html.ActionLink("Roles", "Index", "RoleAdmin", null, new
+                    {
+                        @class = "btn btn-block btn-lg border border-primary" + (ViewBag.MenuType == "Roles" ? " btn-primary" : "")
+                    })
+                </div>
+                <div class="tab-content col-sm-9" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">@RenderBody()</div>
+                </div>
             </div>
-        }
-        @RenderBody()
+        </div>
     </div>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
 </body>
 </html>

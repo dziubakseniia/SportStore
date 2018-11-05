@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -14,6 +15,7 @@ namespace SportsStore.WebUI.Controllers
     {
         public ActionResult Users()
         {
+            ViewBag.MenuType = "Users";
             return View(UserManager.Users);
         }
 
@@ -32,7 +34,7 @@ namespace SportsStore.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { UserName = model.UserName, Email = model.Email, Status = Status.Unlocked};
+                User user = new User { UserName = model.UserName, Email = model.Email, Status = Status.Unlocked };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -161,6 +163,25 @@ namespace SportsStore.WebUI.Controllers
             if (user != null)
             {
                 user.Status = status;
+                if (user.Status == Status.Blocked)
+                {
+                    await UserManager.AddToRoleAsync(user.Id, "Blocked Users");
+
+                    var blockedRoles = (from role in RoleManager.Roles
+                                        where (role.Name != "Blocked Users")
+                                        select role.Name).ToArray();
+
+                    foreach (var role in blockedRoles)
+                    {
+                        await UserManager.RemoveFromRoleAsync(user.Id, role);
+                    }
+                }
+
+                if (user.Status == Status.Unlocked)
+                {
+                    await UserManager.RemoveFromRoleAsync(user.Id, "Blocked Users");
+                    await UserManager.AddToRoleAsync(user.Id, "Users");
+                }
                 IdentityResult result = await UserManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
@@ -173,6 +194,11 @@ namespace SportsStore.WebUI.Controllers
                 }
             }
             return RedirectToAction("Users");
+        }
+
+        private EfRoleManager RoleManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<EfRoleManager>(); }
         }
     }
 }

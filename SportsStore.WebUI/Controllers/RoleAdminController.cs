@@ -17,6 +17,7 @@ namespace SportsStore.WebUI.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.MenuType = "Roles";
             return View(RoleManager.Roles);
         }
 
@@ -86,6 +87,12 @@ namespace SportsStore.WebUI.Controllers
                 foreach (string userId in model.IdsToAdd ?? new string[] { })
                 {
                     result = await UserManager.AddToRoleAsync(userId, model.RoleName);
+                    User user = await UserManager.FindByIdAsync(userId);
+                    if (model.RoleName == "Blocked Users")
+                    {
+                        user.Status = Status.Blocked;
+                        await UserManager.UpdateAsync(user);
+                    }
                     if (!result.Succeeded)
                     {
                         return View("Error", result.Errors);
@@ -95,6 +102,12 @@ namespace SportsStore.WebUI.Controllers
                 foreach (string userId in model.IdsToDelete ?? new string[] { })
                 {
                     result = await UserManager.RemoveFromRoleAsync(userId, model.RoleName);
+                    User user = await UserManager.FindByIdAsync(userId);
+                    if (model.RoleName == "Blocked Users")
+                    {
+                        user.Status = Status.Unlocked;
+                        await UserManager.UpdateAsync(user);
+                    }
                     if (!result.Succeeded)
                     {
                         return View("Error", result.Errors);
@@ -123,6 +136,11 @@ namespace SportsStore.WebUI.Controllers
         private EfRoleManager RoleManager
         {
             get { return HttpContext.GetOwinContext().GetUserManager<EfRoleManager>(); }
+        }
+
+        public User CurrentUserManager
+        {
+            get { return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<EfUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()); }
         }
     }
 }
