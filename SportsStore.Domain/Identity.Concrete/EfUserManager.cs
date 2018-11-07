@@ -9,8 +9,7 @@ namespace SportsStore.Domain.Identity.Concrete
     public class EfUserManager : UserManager<User>
     {
         public EfUserManager(IUserStore<User> store) : base(store)
-        {
-        }
+        { }
 
         public static EfUserManager Create(IdentityFactoryOptions<EfUserManager> options, IOwinContext context)
         {
@@ -34,6 +33,5 @@ namespace SportsStore.Domain.Identity.Concrete
 
             return userManager;
         }
-
     }
 }

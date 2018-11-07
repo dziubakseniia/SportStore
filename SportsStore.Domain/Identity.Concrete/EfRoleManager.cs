@@ -8,8 +8,7 @@ namespace SportsStore.Domain.Identity.Concrete
     public class EfRoleManager : RoleManager<EfRole>
     {
         public EfRoleManager(RoleStore<EfRole> store) : base(store)
-        {
-        }
+        { }
 
         public static EfRoleManager Create(IdentityFactoryOptions<EfRoleManager> options, IOwinContext context)
         {

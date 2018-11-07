@@ -10,24 +10,24 @@ namespace SportsStore.WebUI.Controllers
     [Authorize(Roles = "Administrators")]
     public class AdminController : Controller
     {
-        private IProductRepository _repository;
+        private IProductRepository _productRepository;
         private IOrderProcessor _orderProcessor;
 
-        public AdminController(IProductRepository repository, IOrderProcessor orderProcessor)
+        public AdminController(IProductRepository productRepository, IOrderProcessor orderProcessor)
         {
-            _repository = repository;
+            _productRepository = productRepository;
             _orderProcessor = orderProcessor;
         }
 
         public ViewResult Index()
         {
             ViewBag.MenuType = "Products";
-            return View(_repository.Products);
+            return View(_productRepository.Products);
         }
 
         public ViewResult Edit(int productId)
         {
-            Product product = _repository.Products.FirstOrDefault(p => p.ProductId == productId);
+            Product product = _productRepository.Products.FirstOrDefault(p => p.ProductId == productId);
             return View(product);
         }
 
@@ -42,14 +42,11 @@ namespace SportsStore.WebUI.Controllers
                     product.ImageData = new byte[image.ContentLength];
                     image.InputStream.Read(product.ImageData, 0, image.ContentLength);
                 }
-                _repository.SaveProduct(product);
-                TempData["message"] = string.Format("{0} changes has been saved", product.Name);
+                _productRepository.SaveProduct(product);
+                TempData["message"] = $"{product.Name} changes has been saved";
                 return RedirectToAction("Index");
             }
-            else
-            {
-                return View(product);
-            }
+            return View(product);
         }
 
         public ViewResult Create()
@@ -60,10 +57,10 @@ namespace SportsStore.WebUI.Controllers
         [HttpPost]
         public ActionResult Delete(int productId)
         {
-            Product deletedProduct = _repository.DeleteProduct(productId);
+            Product deletedProduct = _productRepository.DeleteProduct(productId);
             if (deletedProduct != null)
             {
-                TempData["message"] = string.Format("{0} was deleted", deletedProduct.Name);
+                TempData["message"] = $"{deletedProduct.Name} was deleted";
             }
 
             return RedirectToAction("Index");
@@ -73,10 +70,12 @@ namespace SportsStore.WebUI.Controllers
         {
             ViewBag.MenuType = "Orders";
 
-            List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = @"registered", Value = "registered" });
-            items.Add(new SelectListItem { Text = @"paid", Value = "paid" });
-            items.Add(new SelectListItem { Text = @"canceled", Value = "canceled" });
+            List<SelectListItem> items = new List<SelectListItem>
+            {
+                new SelectListItem {Text = @"registered", Value = "registered"},
+                new SelectListItem {Text = @"paid", Value = "paid"},
+                new SelectListItem {Text = @"canceled", Value = "canceled"}
+            };
 
             ViewBag.Status = items;
 
@@ -95,7 +94,5 @@ namespace SportsStore.WebUI.Controllers
 
             return RedirectToAction("Orders");
         }
-
-
     }
 }

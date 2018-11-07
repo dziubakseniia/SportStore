@@ -1,0 +1,4 @@
+2018-11-07 22:34:59.9540|ERROR|SportsStore.WebUI.Controllers.ProductController|MyException
+2018-11-07 22:34:59.9540|ERROR|SportsStore.WebUI.Controllers.ProductController|MyException
+2018-11-07 22:35:25.0035|ERROR|SportsStore.WebUI.Controllers.ProductController|MyException
+2018-11-07 22:35:33.3639|ERROR|SportsStore.WebUI.Controllers.ProductController|MyException

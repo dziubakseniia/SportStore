@@ -11,30 +11,38 @@ using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
-        private IProductRepository _repository;
+        private IProductRepository _productRepository;
         private IOrderProcessor _orderProcessor;
 
-        public CartController(IProductRepository repository, IOrderProcessor orderProcessor)
+        private User CurrentUserManager
         {
-            _repository = repository;
+            get { return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<EfUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()); }
+        }
+
+        public CartController(IProductRepository productRepository, IOrderProcessor orderProcessor)
+        {
+            _productRepository = productRepository;
             _orderProcessor = orderProcessor;
         }
 
+        [Authorize(Roles = "Users")]
         public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
-            Product product = _repository.Products.FirstOrDefault(x => x.ProductId == productId);
+            Product product = _productRepository.Products.FirstOrDefault(x => x.ProductId == productId);
             if (product != null)
             {
                 cart.AddItem(product, 1);
             }
+
             return RedirectToAction("Index", new { returnUrl });
         }
 
         public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl)
         {
-            Product product = _repository.Products.FirstOrDefault(x => x.ProductId == productId);
+            Product product = _productRepository.Products.FirstOrDefault(x => x.ProductId == productId);
             if (product != null)
             {
                 cart.RemoveLine(product);
@@ -75,7 +83,7 @@ namespace SportsStore.WebUI.Controllers
                 _orderProcessor.ProcessOrder(cart, shippingDetails, order);
                 foreach (var line in cart.Lines)
                 {
-                    foreach (var product in _repository.Products)
+                    foreach (var product in _productRepository.Products)
                     {
                         if (product.ProductId == line.Product.ProductId)
                         {
@@ -83,25 +91,17 @@ namespace SportsStore.WebUI.Controllers
                         }
                     }
                 }
-                _repository.UpdateProduct();
+                _productRepository.UpdateProduct();
                 cart.Clear();
                 return View("Completed");
             }
-            else
-            {
-                return View(shippingDetails);
-            }
+            return View(shippingDetails);
         }
 
-        public ViewResult UserOrders(string returnurl)
+        public ViewResult UserOrders()
         {
             IEnumerable<Order> orders = _orderProcessor.Orders.Where(o => o.UserId == CurrentUserManager.Id);
             return View(orders);
-        }
-
-        public User CurrentUserManager
-        {
-            get { return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<EfUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()); }
         }
     }
 }

@@ -39,7 +39,6 @@ namespace SportsStore.Domain.Concrete
                     dbEntry.ImageMimeType = product.ImageMimeType;
                 }
             }
-
             _context.SaveChanges();
         }
 
@@ -51,7 +50,6 @@ namespace SportsStore.Domain.Concrete
                 _context.Products.Remove(dbEntry);
                 _context.SaveChanges();
             }
-
             return dbEntry;
         }
     }

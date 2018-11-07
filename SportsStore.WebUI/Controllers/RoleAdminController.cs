@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -15,10 +17,22 @@ namespace SportsStore.WebUI.Controllers
     [Authorize(Roles = "Administrators")]
     public class RoleAdminController : Controller
     {
+        private static NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
+
         public ActionResult Index()
         {
             ViewBag.MenuType = "Roles";
             return View(RoleManager.Roles);
+        }
+
+        private EfUserManager UserManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<EfUserManager>(); }
+        }
+
+        private EfRoleManager RoleManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<EfRoleManager>(); }
         }
 
         public ActionResult Create()
@@ -31,17 +45,21 @@ namespace SportsStore.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityResult result = await RoleManager.CreateAsync(new EfRole(name));
-                if (result.Succeeded)
+                try
                 {
-                    return RedirectToAction("Index");
+                    IdentityResult result = await RoleManager.CreateAsync(new EfRole(name));
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+                    throw new Exception(result.Errors.ToString());
                 }
-                else
+                catch (Exception exception)
                 {
-                    AddErrorsFromResult(result);
+                    _logger.Error(exception.Message);
                 }
             }
-
             return RedirectToAction("Index");
         }
 
@@ -51,14 +69,19 @@ namespace SportsStore.WebUI.Controllers
             EfRole role = await RoleManager.FindByIdAsync(id);
             if (role != null)
             {
-                IdentityResult result = await RoleManager.DeleteAsync(role);
-                if (result.Succeeded)
+                try
                 {
-                    return RedirectToAction("Index");
+                    IdentityResult result = await RoleManager.DeleteAsync(role);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+                    throw new Exception(result.Errors.ToString());
                 }
-                else
+                catch (Exception exception)
                 {
-                    return View("Error", result.Errors);
+                    _logger.Error(exception.Message);
                 }
             }
             return View("Error", new[] { "Role not found" });
@@ -81,36 +104,56 @@ namespace SportsStore.WebUI.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(RoleModificationModel model)
         {
-            IdentityResult result;
             if (ModelState.IsValid)
             {
+                IdentityResult result;
                 foreach (string userId in model.IdsToAdd ?? new string[] { })
                 {
-                    result = await UserManager.AddToRoleAsync(userId, model.RoleName);
-                    User user = await UserManager.FindByIdAsync(userId);
-                    if (model.RoleName == "Blocked Users")
+                    try
                     {
-                        user.Status = Status.Blocked;
-                        await UserManager.UpdateAsync(user);
+                        result = await UserManager.AddToRoleAsync(userId, model.RoleName);
+                        if (result.Succeeded)
+                        {
+                            User user = await UserManager.FindByIdAsync(userId);
+                            if (model.RoleName == "Blocked Users")
+                            {
+                                user.Status = Status.Blocked;
+                                await UserManager.UpdateAsync(user);
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception(result.Errors.ToString());
+                        }
                     }
-                    if (!result.Succeeded)
+                    catch (Exception exception)
                     {
-                        return View("Error", result.Errors);
+                        _logger.Error(exception.Message);
                     }
                 }
 
                 foreach (string userId in model.IdsToDelete ?? new string[] { })
                 {
-                    result = await UserManager.RemoveFromRoleAsync(userId, model.RoleName);
-                    User user = await UserManager.FindByIdAsync(userId);
-                    if (model.RoleName == "Blocked Users")
+                    try
                     {
-                        user.Status = Status.Unlocked;
-                        await UserManager.UpdateAsync(user);
+                        result = await UserManager.RemoveFromRoleAsync(userId, model.RoleName);
+                        User user = await UserManager.FindByIdAsync(userId);
+                        if (result.Succeeded)
+                        {
+                            if (model.RoleName == "Blocked Users")
+                            {
+                                user.Status = Status.Unlocked;
+                                await UserManager.UpdateAsync(user);
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception(result.Errors.ToString());
+                        }
                     }
-                    if (!result.Succeeded)
+                    catch (Exception exception)
                     {
-                        return View("Error", result.Errors);
+                        _logger.Error(exception.Message);
                     }
                 }
 
@@ -118,29 +161,6 @@ namespace SportsStore.WebUI.Controllers
             }
 
             return View("Error", new[] { "Role not found" });
-        }
-
-        private void AddErrorsFromResult(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
-
-        private EfUserManager UserManager
-        {
-            get { return HttpContext.GetOwinContext().GetUserManager<EfUserManager>(); }
-        }
-
-        private EfRoleManager RoleManager
-        {
-            get { return HttpContext.GetOwinContext().GetUserManager<EfRoleManager>(); }
-        }
-
-        public User CurrentUserManager
-        {
-            get { return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<EfUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()); }
         }
     }
 }

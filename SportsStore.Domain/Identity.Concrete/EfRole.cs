@@ -5,11 +5,9 @@ namespace SportsStore.Domain.Identity.Concrete
     public class EfRole : IdentityRole
     {
         public EfRole()
-        {
-        }
+        { }
 
         public EfRole(string roleName) : base(roleName)
-        {
-        }
+        { }
     }
 }

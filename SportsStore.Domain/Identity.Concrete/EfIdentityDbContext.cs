@@ -6,14 +6,13 @@ namespace SportsStore.Domain.Identity.Concrete
 {
     public class EfIdentityDbContext : IdentityDbContext<User>
     {
-        public EfIdentityDbContext() : base("IdentityDb")
-        {
-        }
-
         static EfIdentityDbContext()
         {
             Database.SetInitializer(new IdentityDbInit());
         }
+
+        public EfIdentityDbContext() : base("IdentityDb")
+        { }
 
         public static EfIdentityDbContext Create()
         {

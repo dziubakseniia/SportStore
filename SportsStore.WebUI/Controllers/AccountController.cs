@@ -1,12 +1,16 @@
-﻿using System.Security.Claims;
+﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SportsStore.Domain.Entities;
 using SportsStore.Domain.Identity.Concrete;
+using SportsStore.Domain.Migrations;
 using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Controllers
@@ -19,6 +23,21 @@ namespace SportsStore.WebUI.Controllers
         {
             ViewBag.returnUrl = returnUrl;
             return View();
+        }
+
+        private IAuthenticationManager AuthManager
+        {
+            get { return HttpContext.GetOwinContext().Authentication; }
+        }
+
+        private EfUserManager UserManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<EfUserManager>(); }
+        }
+
+        private EfRoleManager RoleManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<EfRoleManager>(); }
         }
 
         [HttpPost]
@@ -39,6 +58,14 @@ namespace SportsStore.WebUI.Controllers
                         await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
                     AuthManager.SignOut();
                     AuthManager.SignIn(new AuthenticationProperties { IsPersistent = false }, identity);
+
+                    foreach (IdentityUserRole identityUserRole in user.Roles)
+                    {
+                        if (identityUserRole.RoleId == "c23b7312-bd87-4dca-a1ba-ed09f8e25b09")
+                        {
+                            return RedirectToAction("Index", "Admin");
+                        }
+                    }
                     return Redirect(returnUrl);
                 }
             }
@@ -52,16 +79,6 @@ namespace SportsStore.WebUI.Controllers
         {
             AuthManager.SignOut();
             return RedirectToAction("List", "Product");
-        }
-
-        private IAuthenticationManager AuthManager
-        {
-            get { return HttpContext.GetOwinContext().Authentication; }
-        }
-
-        public EfUserManager UserManager
-        {
-            get { return HttpContext.GetOwinContext().GetUserManager<EfUserManager>(); }
         }
     }
 }

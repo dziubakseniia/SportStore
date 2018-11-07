@@ -7,6 +7,11 @@ namespace SportsStore.Domain.Entities
     {
         private List<CartLine> lineCollection = new List<CartLine>();
 
+        public IEnumerable<CartLine> Lines
+        {
+            get { return lineCollection; }
+        }
+
         public void AddItem(Product product, int quantity)
         {
             CartLine line = lineCollection.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
@@ -38,11 +43,6 @@ namespace SportsStore.Domain.Entities
         public void Clear()
         {
             lineCollection.Clear();
-        }
-
-        public IEnumerable<CartLine> Lines
-        {
-            get { return lineCollection; }
         }
     }
 }

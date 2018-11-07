@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -13,12 +14,21 @@ namespace SportsStore.Domain.Concrete
 {
     public class EfOrderProcessor : IOrderProcessor
     {
+        private static NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
         private EmailSettings _emailSettings;
         private EfDbContext _context = new EfDbContext();
 
         public EfOrderProcessor(EmailSettings emailSettings)
         {
             _emailSettings = emailSettings;
+        }
+
+        private User CurrentUserManager
+        {
+            get
+            {
+                return HttpContext.Current.GetOwinContext().GetUserManager<EfUserManager>().FindById(HttpContext.Current.User.Identity.GetUserId());
+            }
         }
 
         public IEnumerable<Order> Orders
@@ -64,7 +74,14 @@ namespace SportsStore.Domain.Concrete
                                                           shippingDetails.Email,
                                                           "new order submitted!",
                                                           body.ToString());
-                smtpClient.Send(mailMessage);
+                try
+                {
+                    smtpClient.Send(mailMessage);
+                }
+                catch (Exception exception)
+                {
+                    _logger.Error(exception.Message);
+                }
 
                 body = new StringBuilder();
 
@@ -84,11 +101,6 @@ namespace SportsStore.Domain.Concrete
 
                 SaveOrder(order);
             }
-        }
-
-        public User CurrentUserManager
-        {
-            get { return HttpContext.Current.GetOwinContext().GetUserManager<EfUserManager>().FindById(HttpContext.Current.User.Identity.GetUserId()); }
         }
 
         public void SaveOrder(Order order)
