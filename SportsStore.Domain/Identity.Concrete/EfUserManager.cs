@@ -6,11 +6,24 @@ using SportsStore.Domain.Entities;
 
 namespace SportsStore.Domain.Identity.Concrete
 {
+    /// <summary>
+    /// Manages Users.
+    /// </summary>
     public class EfUserManager : UserManager<User>
     {
+        /// <summary>
+        /// Constructor for EfUserManager.
+        /// </summary>
+        /// <param name="store">Base <c>IUserStore</c> for creating.</param>
         public EfUserManager(IUserStore<User> store) : base(store)
         { }
 
+        /// <summary>
+        /// Static method for creating EfUserManager.
+        /// </summary>
+        /// <param name="options">Options <c>IdentityFactoryOptions</c> for creating.</param>
+        /// <param name="context">Context <c>IOwinContext</c> for creating.</param>
+        /// <returns>New UserManager.</returns>
         public static EfUserManager Create(IdentityFactoryOptions<EfUserManager> options, IOwinContext context)
         {
             EfIdentityDbContext db = context.Get<EfIdentityDbContext>();

@@ -9,18 +9,31 @@ using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Controllers
 {
+    /// <summary>
+    /// Controller for Products managing.
+    /// </summary>
     [Authorize]
     public class ProductController : Controller
     {
         private IProductRepository _productRepository;
-        private static NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
         public int PageSize = 4;
 
-        public ProductController(IProductRepository productProductRepository)
+        /// <summary>
+        /// Constructor for ProductController.
+        /// </summary>
+        /// <param name="productRepository">Product Repository for managing Products.</param>
+        public ProductController(IProductRepository productRepository)
         {
-            _productRepository = productProductRepository;
+            _productRepository = productRepository;
         }
 
+        /// <summary>
+        /// View for Products List.
+        /// </summary>
+        /// <param name="category">String selected category.</param>
+        /// <param name="sorting">String selected sorting type.</param>
+        /// <param name="page">int page number from which to view List of Products.</param>
+        /// <returns>View of ProductsViewModel</returns>
         public ViewResult List(string category, string sorting = null, int page = 1)
         {
             ProductsListViewModel model = new ProductsListViewModel
@@ -40,6 +53,12 @@ namespace SportsStore.WebUI.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Shows types of sorting.
+        /// </summary>
+        /// <param name="sorting">String selected Sorting type.</param>
+        /// <param name="category">String selected sorting category.</param>
+        /// <returns></returns>
         public PartialViewResult Sort(string sorting = null, string category = null)
         {
             ViewBag.Sorting = sorting;
@@ -57,6 +76,14 @@ namespace SportsStore.WebUI.Controllers
             return PartialView("Sorting", sortingTypes);
         }
 
+        /// <summary>
+        /// Managing Products List in depend on sorting type.
+        /// </summary>
+        /// <param name="category">string selected category.</param>
+        /// <param name="sorting">string selected Sorting type.</param>
+        /// <param name="page">int page from which to view Products.</param>
+        /// <returns>Sorted Products in depend on sorting type.</returns>
+        /// <returns>Unsorted Products if there is no sorting type.</returns>
         public IEnumerable<Product> SortedProducts(string category, string sorting = null, int page = 1)
         {
             if (sorting == "Sort from A to Z")
@@ -111,6 +138,12 @@ namespace SportsStore.WebUI.Controllers
                  .Take(PageSize);
         }
 
+        /// <summary>
+        /// Gets Product image.
+        /// </summary>
+        /// <param name="productId">int ProductId of Product.</param>
+        /// <returns>FileContentResult with Product image if it exists in the database.</returns>
+        /// <returns>FileContentResult with default image if there is no image for this Product in the database.</returns>
         public FileContentResult GetImage(int productId)
         {
             Product product = _productRepository.Products.FirstOrDefault(p => p.ProductId == productId);

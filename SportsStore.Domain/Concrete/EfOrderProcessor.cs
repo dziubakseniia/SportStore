@@ -12,17 +12,28 @@ using SportsStore.Domain.Identity.Concrete;
 
 namespace SportsStore.Domain.Concrete
 {
+    /// <summary>
+    /// Processes orders.
+    /// </summary>
     public class EfOrderProcessor : IOrderProcessor
     {
         private static NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
         private EmailSettings _emailSettings;
         private EfDbContext _context = new EfDbContext();
 
+        /// <summary>
+        /// Constructor for <c>EfOrderProcessor.</c>
+        /// </summary>
+        /// <param name="emailSettings"></param>
         public EfOrderProcessor(EmailSettings emailSettings)
         {
             _emailSettings = emailSettings;
         }
 
+        /// <summary>
+        /// Property for Current User.
+        /// </summary>
+        /// <returns>Current user.</returns>
         private User CurrentUserManager
         {
             get
@@ -31,6 +42,10 @@ namespace SportsStore.Domain.Concrete
             }
         }
 
+        /// <summary>
+        /// Property for Orders.
+        /// </summary>
+        /// <returns>Orders from "SportsStore" database.</returns>
         public IEnumerable<Order> Orders
         {
             get
@@ -39,6 +54,12 @@ namespace SportsStore.Domain.Concrete
             }
         }
 
+        /// <summary>
+        /// Creates new order and send the email message with info to client.
+        /// </summary>
+        /// <param name="cart">A <c>Cart</c>.</param>
+        /// <param name="shippingDetails">A <c>ShippingDetails</c>.</param>
+        /// <param name="order">An <c>Order</c>.</param>
         public void ProcessOrder(Cart cart, ShippingDetails shippingDetails, Order order)
         {
             using (var smtpClient = new SmtpClient())
@@ -103,6 +124,10 @@ namespace SportsStore.Domain.Concrete
             }
         }
 
+        /// <summary>
+        /// Saves Order in the "SportsStore" database.
+        /// </summary>
+        /// <param name="order">An <c>Order</c> to save.</param>
         public void SaveOrder(Order order)
         {
             if (order.OrderId == 0)

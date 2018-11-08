@@ -131,7 +131,6 @@
     <Compile Include="Identity.Concrete\EfIdentityDbContext.cs" />
     <Compile Include="Identity.Concrete\IdentityDbInit.cs" />
     <Compile Include="Identity.Concrete\EfUserManager.cs" />
-    <Compile Include="Identity.Concrete\IdentityHelpers.cs" />
     <Compile Include="Entities\Cart.cs" />
     <Compile Include="Entities\CartLine.cs" />
     <Compile Include="Entities\Order.cs" />

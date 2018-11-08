@@ -2,3 +2,10 @@
 2018-11-07 22:34:59.9540|ERROR|SportsStore.WebUI.Controllers.ProductController|MyException
 2018-11-07 22:35:25.0035|ERROR|SportsStore.WebUI.Controllers.ProductController|MyException
 2018-11-07 22:35:33.3639|ERROR|SportsStore.WebUI.Controllers.ProductController|MyException
+2018-11-08 19:48:47.4832|ERROR|SportsStore.WebUI.Controllers.UserAdminController|Exception of type 'System.Exception' was thrown.
+2018-11-08 19:48:50.3642|ERROR|SportsStore.WebUI.Controllers.UserAdminController|Exception of type 'System.Exception' was thrown.
+2018-11-08 19:58:07.5600|ERROR|SportsStore.WebUI.Controllers.RoleAdminController|System.String[]
+2018-11-08 20:59:07.3913|INFO|SportsStore.WebUI.Controllers.AccountController|User logged out.
+2018-11-08 20:59:18.6021|INFO|SportsStore.WebUI.Controllers.AccountController|admin logged in.
+2018-11-08 21:00:19.7878|INFO|SportsStore.WebUI.Controllers.AccountController|User logged out.
+2018-11-08 21:00:44.2273|INFO|SportsStore.WebUI.Controllers.AccountController|kseniia logged in.

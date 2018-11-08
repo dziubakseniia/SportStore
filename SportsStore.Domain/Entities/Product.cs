@@ -5,6 +5,9 @@ using System.Web.Mvc;
 
 namespace SportsStore.Domain.Entities
 {
+    /// <summary>
+    /// Manages Products.
+    /// </summary>
     public class Product
     {
         [HiddenInput(DisplayValue = false)]

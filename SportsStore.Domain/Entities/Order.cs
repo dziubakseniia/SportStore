@@ -1,5 +1,8 @@
 ﻿namespace SportsStore.Domain.Entities
 {
+    /// <summary>
+    /// Manages Orders.
+    /// </summary>
     public class Order
     {
         public int OrderId { get; set; }

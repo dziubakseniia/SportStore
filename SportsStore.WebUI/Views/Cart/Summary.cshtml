@@ -28,7 +28,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <a href="@Url.Action("UserOrders", "Cart", new {returnUrl = Request.Url.PathAndQuery})" class="btn btn-secondary btn-outline-primary">
-            <span>My Orders</span>
+            <span>@User.Identity.Name's Orders</span>
         </a>
         <label class="navbar-text">Logout</label>
         <a href="@Url.Action("Logout", "Account", new {returnUrl = Request.Url.PathAndQuery})" class="btn btn-outline-secondary">

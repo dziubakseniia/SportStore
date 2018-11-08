@@ -14,32 +14,54 @@ using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Controllers
 {
+    /// <summary>
+    /// Controller for Administrators for managing roles.
+    /// </summary>
     [Authorize(Roles = "Administrators")]
     public class RoleAdminController : Controller
     {
         private static NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 
+        /// <summary>
+        /// Property for User Manager.
+        /// </summary>
+        private EfUserManager UserManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<EfUserManager>(); }
+        }
+
+        /// <summary>
+        /// Property for Role Manager
+        /// </summary>
+        private EfRoleManager RoleManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<EfRoleManager>(); }
+        }
+
+        /// <summary>
+        /// Shows Roles.
+        /// </summary>
+        /// <returns>View of existing Roles.</returns>
         public ActionResult Index()
         {
             ViewBag.MenuType = "Roles";
             return View(RoleManager.Roles);
         }
 
-        private EfUserManager UserManager
-        {
-            get { return HttpContext.GetOwinContext().GetUserManager<EfUserManager>(); }
-        }
-
-        private EfRoleManager RoleManager
-        {
-            get { return HttpContext.GetOwinContext().GetUserManager<EfRoleManager>(); }
-        }
-
+        /// <summary>
+        /// Page for creating Roles.
+        /// </summary>
+        /// <returns>View for creating Roles.</returns>
         public ActionResult Create()
         {
             return View();
         }
 
+        /// <summary>
+        /// PostBack method for creating Roles.
+        /// </summary>
+        /// <param name="name">string name of role to create.</param>
+        /// <returns>Main Page of Roles.</returns>
         [HttpPost]
         public async Task<ActionResult> Create([Required] string name)
         {
@@ -50,6 +72,7 @@ namespace SportsStore.WebUI.Controllers
                     IdentityResult result = await RoleManager.CreateAsync(new EfRole(name));
                     if (result.Succeeded)
                     {
+                        _logger.Info($"Role {name} was created.");
                         return RedirectToAction("Index");
                     }
 
@@ -63,6 +86,12 @@ namespace SportsStore.WebUI.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// PostBack method for deleting Roles.
+        /// </summary>
+        /// <param name="id">string id of role to delete.</param>
+        /// <returns>Main Page of Roles if role to delete exists.</returns>
+        /// <returns>Error View if role has not been found.</returns>
         [HttpPost]
         public async Task<ActionResult> Delete(string id)
         {
@@ -74,6 +103,7 @@ namespace SportsStore.WebUI.Controllers
                     IdentityResult result = await RoleManager.DeleteAsync(role);
                     if (result.Succeeded)
                     {
+                        _logger.Info($"Role {role.Name} was deleted.");
                         return RedirectToAction("Index");
                     }
 
@@ -87,6 +117,11 @@ namespace SportsStore.WebUI.Controllers
             return View("Error", new[] { "Role not found" });
         }
 
+        /// <summary>
+        /// Edits Role.
+        /// </summary>
+        /// <param name="id">string id of Role.</param>
+        /// <returns>View of RoleEditModel.</returns>
         public async Task<ActionResult> Edit(string id)
         {
             EfRole role = await RoleManager.FindByIdAsync(id);
@@ -101,6 +136,12 @@ namespace SportsStore.WebUI.Controllers
             });
         }
 
+        /// <summary>
+        /// PostBack method for editing Roles.
+        /// </summary>
+        /// <param name="model"><c>RoleModificationModel</c> for model to add.</param>
+        /// <returns>Main Page of Roles if ModelState is valid.</returns>
+        /// <returns>Error View if Role has not been found.</returns>
         [HttpPost]
         public async Task<ActionResult> Edit(RoleModificationModel model)
         {
@@ -120,6 +161,7 @@ namespace SportsStore.WebUI.Controllers
                                 user.Status = Status.Blocked;
                                 await UserManager.UpdateAsync(user);
                             }
+                            _logger.Info($"Role {model.RoleName} was edited.");
                         }
                         else
                         {
@@ -145,6 +187,7 @@ namespace SportsStore.WebUI.Controllers
                                 user.Status = Status.Unlocked;
                                 await UserManager.UpdateAsync(user);
                             }
+                            _logger.Info($"Role {model.RoleName} was edited.");
                         }
                         else
                         {

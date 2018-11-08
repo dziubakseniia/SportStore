@@ -2,6 +2,9 @@
 
 namespace SportsStore.Domain.Entities
 {
+    /// <summary>
+    /// Manages Shipping Details.
+    /// </summary>
     public class ShippingDetails
     {
         [Required(ErrorMessage = "Your name is required.")]
