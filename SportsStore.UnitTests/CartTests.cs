@@ -1,9 +1,12 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
+using SportsStore.Domain.Identity.Concrete;
 using SportsStore.WebUI.Controllers;
 using SportsStore.WebUI.Models;
 
@@ -18,15 +21,15 @@ namespace SportsStore.UnitTests
             Product p1 = new Product { ProductId = 1, Name = "P1" };
             Product p2 = new Product { ProductId = 2, Name = "P2" };
 
-            Cart target = new Cart();
-            target.AddItem(p1, 1);
-            target.AddItem(p2, 1);
+            Cart cart = new Cart();
+            cart.AddItem(p1, 1);
+            cart.AddItem(p2, 1);
 
-            CartLine[] results = target.Lines.ToArray();
+            CartLine[] cartLines = cart.Lines.ToArray();
 
-            Assert.AreEqual(results.Length, 2);
-            Assert.AreEqual(results[0].Product, p1);
-            Assert.AreEqual(results[1].Product, p2);
+            Assert.AreEqual(cartLines.Length, 2);
+            Assert.AreEqual(cartLines[0].Product, p1);
+            Assert.AreEqual(cartLines[1].Product, p2);
         }
 
         [TestMethod]
@@ -35,16 +38,16 @@ namespace SportsStore.UnitTests
             Product p1 = new Product { ProductId = 1, Name = "P1" };
             Product p2 = new Product { ProductId = 2, Name = "P2" };
 
-            Cart target = new Cart();
-            target.AddItem(p1, 1);
-            target.AddItem(p2, 1);
-            target.AddItem(p1, 10);
+            Cart cart = new Cart();
+            cart.AddItem(p1, 1);
+            cart.AddItem(p2, 1);
+            cart.AddItem(p1, 10);
 
-            CartLine[] results = target.Lines.OrderBy(p => p.Product.ProductId).ToArray();
+            CartLine[] cartLines = cart.Lines.OrderBy(p => p.Product.ProductId).ToArray();
 
-            Assert.AreEqual(results.Length, 2);
-            Assert.AreEqual(results[0].Quantity, 11);
-            Assert.AreEqual(results[1].Quantity, 1);
+            Assert.AreEqual(cartLines.Length, 2);
+            Assert.AreEqual(cartLines[0].Quantity, 11);
+            Assert.AreEqual(cartLines[1].Quantity, 1);
         }
 
         [TestMethod]
@@ -54,16 +57,16 @@ namespace SportsStore.UnitTests
             Product p2 = new Product { ProductId = 2, Name = "P2" };
             Product p3 = new Product { ProductId = 3, Name = "P3" };
 
-            Cart target = new Cart();
-            target.AddItem(p1, 1);
-            target.AddItem(p2, 3);
-            target.AddItem(p3, 5);
-            target.AddItem(p2, 1);
+            Cart cart = new Cart();
+            cart.AddItem(p1, 1);
+            cart.AddItem(p2, 3);
+            cart.AddItem(p3, 5);
+            cart.AddItem(p2, 1);
 
-            target.RemoveLine(p2);
+            cart.RemoveLine(p2);
 
-            Assert.AreEqual(target.Lines.Count(p => p.Product == p2), 0);
-            Assert.AreEqual(target.Lines.Count(), 2);
+            Assert.AreEqual(cart.Lines.Count(p => p.Product == p2), 0);
+            Assert.AreEqual(cart.Lines.Count(), 2);
         }
 
         [TestMethod]
@@ -78,10 +81,11 @@ namespace SportsStore.UnitTests
                 }.AsQueryable());
 
             Cart cart = new Cart();
-            CartController target = new CartController(mock.Object, null);
-            target.AddToCart(cart, 1, null);
-            target.AddToCart(cart, 2, null);
-            target.RemoveFromCart(cart, 1, null);
+
+            CartController controller = new CartController(mock.Object, null);
+            controller.AddToCart(cart, 1, null);
+            controller.AddToCart(cart, 2, null);
+            controller.RemoveFromCart(cart, 1, null);
 
             Assert.AreEqual(cart.Lines.Count(), 1);
             Assert.AreEqual(cart.Lines.ToArray()[0].Product.ProductId, 2);
@@ -93,12 +97,12 @@ namespace SportsStore.UnitTests
             Product p1 = new Product { ProductId = 1, Name = "P1", Price = 100M };
             Product p2 = new Product { ProductId = 2, Name = "P2", Price = 50M };
 
-            Cart target = new Cart();
-            target.AddItem(p1, 1);
-            target.AddItem(p2, 1);
-            target.AddItem(p1, 3);
+            Cart cart = new Cart();
+            cart.AddItem(p1, 1);
+            cart.AddItem(p2, 1);
+            cart.AddItem(p1, 3);
 
-            decimal total = target.ComputeTotalValue();
+            decimal total = cart.ComputeTotalValue();
 
             Assert.AreEqual(total, 450M);
         }
@@ -109,13 +113,13 @@ namespace SportsStore.UnitTests
             Product p1 = new Product { ProductId = 1, Name = "P1", Price = 100M };
             Product p2 = new Product { ProductId = 2, Name = "P2", Price = 50M };
 
-            Cart target = new Cart();
-            target.AddItem(p1, 1);
-            target.AddItem(p2, 1);
+            Cart cart = new Cart();
+            cart.AddItem(p1, 1);
+            cart.AddItem(p2, 1);
 
-            target.Clear();
+            cart.Clear();
 
-            Assert.AreEqual(target.Lines.Count(), 0);
+            Assert.AreEqual(cart.Lines.Count(), 0);
         }
 
         [TestMethod]
@@ -126,8 +130,8 @@ namespace SportsStore.UnitTests
                 .Returns(new[] { new Product { ProductId = 1, Name = "P1", Category = "Apples" } }.AsQueryable());
 
             Cart cart = new Cart();
-            CartController target = new CartController(mock.Object, null);
-            target.AddToCart(cart, 1, null);
+            CartController controller = new CartController(mock.Object, null);
+            controller.AddToCart(cart, 1, null);
 
             Assert.AreEqual(cart.Lines.Count(), 1);
             Assert.AreEqual(cart.Lines.ToArray()[0].Product.ProductId, 1);
@@ -141,8 +145,8 @@ namespace SportsStore.UnitTests
                 .Returns(new[] { new Product { ProductId = 1, Name = "P1", Category = "Apples" } }.AsQueryable());
 
             Cart cart = new Cart();
-            CartController target = new CartController(mock.Object, null);
-            RedirectToRouteResult result = target.AddToCart(cart, 2, "myUrl");
+            CartController controller = new CartController(mock.Object, null);
+            RedirectToRouteResult result = controller.AddToCart(cart, 2, "myUrl");
 
             Assert.AreEqual(result.RouteValues["action"], "Index");
             Assert.AreEqual(result.RouteValues["returnUrl"], "myUrl");
@@ -152,9 +156,9 @@ namespace SportsStore.UnitTests
         public void Can_View_Cart_Contents()
         {
             Cart cart = new Cart();
-            CartController target = new CartController(null, null);
+            CartController controller = new CartController(null, null);
 
-            CartIndexViewModel result = (CartIndexViewModel)target.Index(cart, "myUrl").ViewData.Model;
+            CartIndexViewModel result = (CartIndexViewModel)controller.Index(cart, "myUrl").ViewData.Model;
 
             Assert.AreSame(result.Cart, cart);
             Assert.AreEqual(result.ReturnUrl, "myUrl");
@@ -167,9 +171,9 @@ namespace SportsStore.UnitTests
             Cart cart = new Cart();
             ShippingDetails shippingDetails = new ShippingDetails();
             Order order = new Order();
-            CartController target = new CartController(null, mock.Object);
+            CartController controller = new CartController(null, mock.Object);
 
-            ViewResult result = target.Checkout(cart, shippingDetails, order);
+            ViewResult result = controller.Checkout(cart, shippingDetails, order);
             mock.Verify(m => m.SendEmail(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Never);
 
             Assert.AreEqual("", result.ViewName);
@@ -183,10 +187,10 @@ namespace SportsStore.UnitTests
             Cart cart = new Cart();
             cart.AddItem(new Product(), 1);
 
-            CartController target = new CartController(null, mock.Object);
-            target.ModelState.AddModelError("error", @"error");
+            CartController controller = new CartController(null, mock.Object);
+            controller.ModelState.AddModelError("error", @"error");
 
-            ViewResult result = target.Checkout(cart, new ShippingDetails(), new Order());
+            ViewResult result = controller.Checkout(cart, new ShippingDetails(), new Order());
             mock.Verify(m => m.SendEmail(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Never);
 
             Assert.AreEqual("", result.ViewName);
@@ -199,17 +203,60 @@ namespace SportsStore.UnitTests
             Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
             Mock<IProductRepository> mockProduct = new Mock<IProductRepository>();
 
+            Product product = new Product { ProductId = 1, Name = "P1", Quantity = 1 };
+            mockProduct.Setup(m => m.Products)
+                .Returns(new[] { product }.AsQueryable());
+
             Cart cart = new Cart();
-            cart.AddItem(new Product(), 1);
+            cart.AddItem(product, 1);
 
-            CartController target = new CartController(mockProduct.Object, mock.Object);
+            CartController controller = new CartController(mockProduct.Object, mock.Object);
 
-            ViewResult result = target.Checkout(cart, new ShippingDetails(), new Order());
+            ViewResult result = controller.Checkout(cart, new ShippingDetails(), new Order());
             mock.Verify(m => m.SendEmail(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Once);
             mock.Verify(m => m.CreateOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>(), It.IsAny<Order>()), Times.Once);
 
             Assert.AreEqual("Completed", result.ViewName);
             Assert.AreEqual(true, result.ViewData.ModelState.IsValid);
+            Assert.AreEqual(0, cart.Lines.Count());
+            Assert.AreEqual(0, product.Quantity);
+        }
+
+        [TestMethod]
+        public void Can_Summarize()
+        {
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            Cart cart = new Cart();
+            cart.AddItem(new Product(), 1);
+
+            CartController controller = new CartController(mock.Object, null);
+            PartialViewResult partialView = controller.Summary(cart);
+
+            Assert.IsInstanceOfType(partialView, typeof(PartialViewResult));
+        }
+
+        [TestMethod]
+        public void Can_Return_Checkout_View()
+        {
+            CartController controller = new CartController(null, null);
+
+            ViewResult viewResult = controller.Checkout();
+
+            Assert.IsInstanceOfType(viewResult, typeof(ViewResult));
+        }
+
+        [TestMethod]
+        public void Can_Return_UserOrders_View()
+        {
+            Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
+            mock.Setup(m => m.Orders).Returns(new[] { new Order { OrderId = 1, UserId = "UserId" } });
+            CartController controller = new CartController(null, mock.Object);
+            ViewResult viewResult = controller.UserOrders();
+
+            Assert.IsInstanceOfType(viewResult, typeof(ViewResult));
+            Assert.AreEqual(1, mock.Object.Orders.Count());
+            Assert.IsInstanceOfType(mock.Object.Orders, typeof(IEnumerable<Order>));
+            Assert.AreEqual("UserId", mock.Object.Orders.ToArray()[0].UserId);
         }
     }
 }

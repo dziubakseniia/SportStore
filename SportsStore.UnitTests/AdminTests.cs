@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -24,9 +25,9 @@ namespace SportsStore.UnitTests
                 new Product {ProductId = 3, Name = "P3"}
             });
 
-            AdminController target = new AdminController(mock.Object, mockOrder.Object);
+            AdminController controller = new AdminController(mock.Object, mockOrder.Object);
 
-            Product[] result = ((IEnumerable<Product>)target.Index().ViewData.Model).ToArray();
+            Product[] result = ((IEnumerable<Product>)controller.Index().ViewData.Model).ToArray();
 
             Assert.AreEqual(result.Length, 3);
             Assert.AreEqual("P1", result[0].Name);
@@ -41,16 +42,16 @@ namespace SportsStore.UnitTests
             Mock<IOrderProcessor> mockOrder = new Mock<IOrderProcessor>();
             mock.Setup(m => m.Products).Returns(new[]
             {
-                new Product {ProductId = 1, Name = "P1"},
-                new Product {ProductId = 2, Name = "P2"},
-                new Product {ProductId = 3, Name = "P3"}
+                new Product {ProductId = 1, Name = "P1", ImageMimeType = "png"},
+                new Product {ProductId = 2, Name = "P2", ImageMimeType = "png"},
+                new Product {ProductId = 3, Name = "P3", ImageMimeType = "png"}
             });
 
-            AdminController target = new AdminController(mock.Object, mockOrder.Object);
+            AdminController controller = new AdminController(mock.Object, mockOrder.Object);
 
-            Product product1 = target.Edit(1).ViewData.Model as Product;
-            Product product2 = target.Edit(2).ViewData.Model as Product;
-            Product product3 = target.Edit(3).ViewData.Model as Product;
+            Product product1 = controller.Edit(1).ViewData.Model as Product;
+            Product product2 = controller.Edit(2).ViewData.Model as Product;
+            Product product3 = controller.Edit(3).ViewData.Model as Product;
 
             if (product1 != null) Assert.AreEqual(1, product1.ProductId);
             if (product2 != null) Assert.AreEqual(2, product2.ProductId);
@@ -69,9 +70,9 @@ namespace SportsStore.UnitTests
                 new Product {ProductId = 3, Name = "P3"}
             });
 
-            AdminController target = new AdminController(mock.Object, mockOrder.Object);
+            AdminController controller = new AdminController(mock.Object, mockOrder.Object);
 
-            Product result = (Product)target.Edit(4).ViewData.Model;
+            Product result = (Product)controller.Edit(4).ViewData.Model;
 
             Assert.IsNull(result);
         }
@@ -82,11 +83,11 @@ namespace SportsStore.UnitTests
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
             Mock<IOrderProcessor> mockOrder = new Mock<IOrderProcessor>();
 
-            AdminController target = new AdminController(mock.Object, mockOrder.Object);
+            AdminController controller = new AdminController(mock.Object, mockOrder.Object);
 
             Product product = new Product { Name = "Test" };
 
-            ActionResult result = target.Edit(product);
+            ActionResult result = controller.Edit(product);
             mock.Verify(m => m.SaveProduct(product));
 
             Assert.IsNotInstanceOfType(result, typeof(ViewResult));
@@ -98,13 +99,13 @@ namespace SportsStore.UnitTests
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
             Mock<IOrderProcessor> mockOrder = new Mock<IOrderProcessor>();
 
-            AdminController target = new AdminController(mock.Object, mockOrder.Object);
+            AdminController controller = new AdminController(mock.Object, mockOrder.Object);
 
             Product product = new Product { Name = "Test" };
 
-            target.ModelState.AddModelError("error", @"error");
+            controller.ModelState.AddModelError("error", @"error");
 
-            ActionResult result = target.Edit(product);
+            ActionResult result = controller.Edit(product);
 
             mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never());
 
@@ -125,9 +126,41 @@ namespace SportsStore.UnitTests
                 new Product {ProductId = 3, Name = "P3"}
             });
 
-            AdminController target = new AdminController(mock.Object, mockOrder.Object);
-            target.Delete(product.ProductId);
+            AdminController controller = new AdminController(mock.Object, mockOrder.Object);
+            controller.Delete(product.ProductId);
             mock.Verify(m => m.DeleteProduct(product.ProductId));
+        }
+
+        [TestMethod]
+        public void Can_Save_Order_Status()
+        {
+            Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
+            Order order = new Order { OrderId = 1, Status = "registered" };
+            mock.Setup(m => m.Orders).Returns(new[] { order });
+
+            AdminController controller = new AdminController(null, mock.Object);
+            controller.SaveStatus(order.OrderId, "canceled");
+
+            Assert.AreEqual("canceled", order.Status);
+        }
+
+        [TestMethod]
+        public void Can_Create_Orders()
+        {
+            Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
+            AdminController controller = new AdminController(null, mock.Object);
+            ViewResult result = controller.Orders();
+
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+        }
+
+        [TestMethod]
+        public void Can_Create_New_Product()
+        {
+            AdminController controller = new AdminController(null, null);
+            ViewResult result = controller.Create();
+
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
     }
 }
