@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -111,97 +113,48 @@ namespace SportsStore.UnitTests
             Assert.IsInstanceOfType(result, typeof(PartialViewResult));
         }
 
-        /*public IEnumerable<Product> SortedProducts(string category, string sorting = null, int page = 1)
-        {
-            if (sorting == "Sort from A to Z")
-            {
-                return _productRepository.Products
-                    .Where(p => category == null || p.Category == category)
-                    .OrderBy(p => p.Name)
-                    .Skip((page - 1) * PageSize)
-                    .Take(PageSize);
-            }
-
-            if (sorting == "Sort from Z to A")
-            {
-                return _productRepository.Products
-                    .Where(p => category == null || p.Category == category)
-                    .OrderByDescending(p => p.Name)
-                    .Skip((page - 1) * PageSize)
-                    .Take(PageSize);
-            }
-
-            if (sorting == "Price: Low to High")
-            {
-                return _productRepository.Products
-                    .Where(p => category == null || p.Category == category)
-                    .OrderBy(p => p.Price)
-                    .Skip((page - 1) * PageSize)
-                    .Take(PageSize);
-            }
-
-            if (sorting == "Price: High to Low")
-            {
-                return _productRepository.Products
-                    .Where(p => category == null || p.Category == category)
-                    .OrderByDescending(p => p.Price)
-                    .Skip((page - 1) * PageSize)
-                    .Take(PageSize);
-            }
-
-            if (sorting == "Newest Arrivals")
-            {
-                return _productRepository.Products
-                    .Where(p => category == null || p.Category == category)
-                    .OrderByDescending(p => p.DateOfAddition)
-                    .Skip((page - 1) * PageSize)
-                    .Take(PageSize);
-            }
-
-            return _productRepository.Products
-                 .Where(p => category == null || p.Category == category)
-                 .OrderBy(p => p.ProductId)
-                 .Skip((page - 1) * PageSize)
-                 .Take(PageSize);
-        }*/
-
         [TestMethod]
         public void Can_Return_Sorted_Products()
         {
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
-            Product product1 = new Product { ProductId = 1, Name = "P1", Price = 1, DateOfAddition = Convert.ToDateTime("11-10-2018") };
-            Product product2 = new Product { ProductId = 2, Name = "P2", Price = 3, DateOfAddition = Convert.ToDateTime("09-10-2018") };
-            Product product3 = new Product { ProductId = 3, Name = "P3", Price = 4, DateOfAddition = Convert.ToDateTime("10-10-2018") };
-            Product product4 = new Product { ProductId = 4, Name = "P4", Price = 2, DateOfAddition = Convert.ToDateTime("13-10-2018") };
-            Product product5 = new Product { ProductId = 5, Name = "P5", Price = 5, DateOfAddition = Convert.ToDateTime("15-10-2018") };
+            Product product1 = new Product
+            { ProductId = 1, Name = "P1", Price = 1, DateOfAddition = Convert.ToDateTime("11-10-2018") };
+            Product product2 = new Product
+            { ProductId = 2, Name = "P2", Price = 3, DateOfAddition = Convert.ToDateTime("09-10-2018") };
+            Product product3 = new Product
+            { ProductId = 3, Name = "P3", Price = 4, DateOfAddition = Convert.ToDateTime("10-10-2018") };
+            Product product4 = new Product
+            { ProductId = 4, Name = "P4", Price = 2, DateOfAddition = Convert.ToDateTime("13-10-2018") };
+            Product product5 = new Product
+            { ProductId = 5, Name = "P5", Price = 5, DateOfAddition = Convert.ToDateTime("15-10-2018") };
             mock.Setup(m => m.Products).Returns(new[]
-            {product1, product2, product3, product4, product5});
+                {product1, product2, product3, product4, product5});
 
             ProductController controller = new ProductController(mock.Object);
             var result1 = mock.Object.Products.Where(p => p.Category == null)
-                                              .OrderBy(p => p.Name)
-                                              .Skip((1 - 1) * 4)
-                                              .Take(4);
+                .OrderBy(p => p.Name)
+                .Skip((1 - 1) * 4)
+                .Take(4);
 
             var result2 = mock.Object.Products.Where(p => p.Category == null)
-                                              .OrderByDescending(p => p.Name)
-                                              .Skip((1 - 1) * 4)
-                                              .Take(4);
+                .OrderByDescending(p => p.Name)
+                .Skip((1 - 1) * 4)
+                .Take(4);
 
             var result3 = mock.Object.Products.Where(p => p.Category == null)
-                                              .OrderBy(p => p.Price)
-                                              .Skip((1 - 1) * 4)
-                                              .Take(4);
+                .OrderBy(p => p.Price)
+                .Skip((1 - 1) * 4)
+                .Take(4);
 
             var result4 = mock.Object.Products.Where(p => p.Category == null)
-                                              .OrderByDescending(p => p.Price)
-                                              .Skip((1 - 1) * 4)
-                                              .Take(4);
+                .OrderByDescending(p => p.Price)
+                .Skip((1 - 1) * 4)
+                .Take(4);
 
             var result5 = mock.Object.Products.Where(p => p.Category == null)
-                                              .OrderByDescending(p => p.DateOfAddition)
-                                              .Skip((1 - 1) * 4)
-                                              .Take(4);
+                .OrderByDescending(p => p.DateOfAddition)
+                .Skip((1 - 1) * 4)
+                .Take(4);
 
             Assert.IsInstanceOfType(controller.SortedProducts(null), typeof(IEnumerable<Product>));
             CollectionAssert.AreEqual(result1.ToList(), controller.SortedProducts(null, "Sort from A to Z").ToList());
@@ -209,6 +162,40 @@ namespace SportsStore.UnitTests
             CollectionAssert.AreEqual(result3.ToList(), controller.SortedProducts(null, "Price: Low to High").ToList());
             CollectionAssert.AreEqual(result4.ToList(), controller.SortedProducts(null, "Price: High to Low").ToList());
             CollectionAssert.AreEqual(result5.ToList(), controller.SortedProducts(null, "Newest Arrivals").ToList());
+        }
+
+        /*public FileContentResult GetImage(int productId)
+        {
+            Product product = _productRepository.Products.FirstOrDefault(p => p.ProductId == productId);
+            byte[] defaultImage = System.IO.File.ReadAllBytes(HttpContext.Server.MapPath("~/Content/no-image-landscape.png"));
+            if (product != null && product.ImageData != null)
+            {
+                return File(product.ImageData, product.ImageMimeType);
+            }
+
+            return new FileContentResult(defaultImage, "image/png");
+        }*/
+
+        [TestMethod]
+        public void Can_Get_Image()
+        {
+            byte[] productImage =
+                File.ReadAllBytes(@"D:\C#_Projects\SportStore\SportsStore.WebUI\Content\download.jpg");
+
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new[]
+            {
+                new Product {ProductId = 1, Name = "P1", ImageData = productImage, ImageMimeType = "jpg"},
+                new Product {ProductId = 2, Name = "P2"}
+            });
+
+            ProductController controller = new ProductController(mock.Object);
+
+            byte[] defaultImage =
+                File.ReadAllBytes(@"D:\C#_Projects\SportStore\SportsStore.WebUI\Content\no-image-landscape.png");
+
+            Assert.IsInstanceOfType(controller.GetImage(1), typeof(FileContentResult));
+            Assert.AreEqual(productImage, controller.GetImage(1).FileContents);
         }
     }
 }

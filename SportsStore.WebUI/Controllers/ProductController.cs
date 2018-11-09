@@ -16,6 +16,7 @@ namespace SportsStore.WebUI.Controllers
     public class ProductController : Controller
     {
         private IProductRepository _productRepository;
+        private static NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
         public int PageSize = 4;
 
         /// <summary>
@@ -147,7 +148,21 @@ namespace SportsStore.WebUI.Controllers
         public FileContentResult GetImage(int productId)
         {
             Product product = _productRepository.Products.FirstOrDefault(p => p.ProductId == productId);
-            byte[] defaultImage = System.IO.File.ReadAllBytes(HttpContext.Server.MapPath("~/Content/no-image-landscape.png"));
+            var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/no-image-landscape.png");
+            byte[] defaultImage = new byte[0];
+            try
+            {
+                if (path != null)
+                {
+                    defaultImage = System.IO.File.ReadAllBytes(path);
+                }
+
+                throw new Exception();
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception.Message);
+            }
             if (product != null && product.ImageData != null)
             {
                 return File(product.ImageData, product.ImageMimeType);

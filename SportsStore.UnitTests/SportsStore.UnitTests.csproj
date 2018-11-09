@@ -105,6 +105,7 @@
     <Compile Include="CartTests.cs" />
     <Compile Include="ProductTests.cs" />
     <Compile Include="AdminTests.cs" />
+    <Compile Include="AccountTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

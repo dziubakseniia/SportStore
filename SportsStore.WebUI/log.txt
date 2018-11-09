@@ -25,3 +25,8 @@
 2018-11-09 12:02:10.0334|INFO|SportsStore.WebUI.Controllers.CartController|Order ¹0 was created.
 2018-11-09 19:41:26.7902|INFO|SportsStore.WebUI.Controllers.AccountController|kseniia logged in.
 2018-11-09 19:41:57.3493|INFO|SportsStore.WebUI.Controllers.CartController|Order ¹0 was created.
+2018-11-10 00:46:12.6437|INFO|SportsStore.WebUI.Controllers.AccountController|User logged out.
+2018-11-10 00:46:23.1040|INFO|SportsStore.WebUI.Controllers.AccountController|admin logged in.
+2018-11-10 00:47:11.0651|INFO|SportsStore.WebUI.Controllers.AdminController|Kayak was changed.
+2018-11-10 00:47:15.4858|INFO|SportsStore.WebUI.Controllers.AccountController|User logged out.
+2018-11-10 00:47:26.1082|INFO|SportsStore.WebUI.Controllers.AccountController|kseniia logged in.
