@@ -5,8 +5,18 @@ using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.HtmlHelpers
 {
+    /// <summary>
+    /// Helpers for paging.
+    /// </summary>
     public static class PagingHelpers
     {
+        /// <summary>
+        /// Static extension method for page links.
+        /// </summary>
+        /// <param name="html">this<c>HtmlHelper</c>.</param>
+        /// <param name="pagingInfo"><c>PagingInfo</c> info about page.</param>
+        /// <param name="pageUrl">Url of page.</param>
+        /// <returns>Created list of pages.</returns>
         public static MvcHtmlString PageLinks(this HtmlHelper html,
                                               PagingInfo pagingInfo,
                                               Func<int, string> pageUrl)

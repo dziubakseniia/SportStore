@@ -3,6 +3,9 @@ using SportsStore.Domain.Entities;
 
 namespace SportsStore.WebUI.Models
 {
+    /// <summary>
+    /// Manages Products List View. 
+    /// </summary>
     public class ProductsListViewModel
     {
         public IEnumerable<Product> Products { get; set; }

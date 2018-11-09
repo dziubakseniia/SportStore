@@ -6,7 +6,8 @@ namespace SportsStore.Domain.Abstract
     public interface IOrderProcessor
     {
         IEnumerable<Order> Orders { get; }
-        void ProcessOrder(Cart cart, ShippingDetails shippingDetails, Order order);
+        void SendEmail(Cart cart, ShippingDetails shippingDetails);
+        void CreateOrder(Cart cart, ShippingDetails shippingDetails, Order order);
         void SaveOrder(Order order);
     }
 }

@@ -9,3 +9,19 @@
 2018-11-08 20:59:18.6021|INFO|SportsStore.WebUI.Controllers.AccountController|admin logged in.
 2018-11-08 21:00:19.7878|INFO|SportsStore.WebUI.Controllers.AccountController|User logged out.
 2018-11-08 21:00:44.2273|INFO|SportsStore.WebUI.Controllers.AccountController|kseniia logged in.
+2018-11-09 11:34:10.6250|INFO|SportsStore.WebUI.Controllers.AccountController|kseniia logged in.
+2018-11-09 11:35:26.7457|ERROR|SportsStore.Domain.Concrete.EfOrderProcessor|Failure sending mail.
+2018-11-09 11:35:26.9907|INFO|SportsStore.WebUI.Controllers.CartController|Order ¹0 was created.
+2018-11-09 11:37:48.2503|ERROR|SportsStore.Domain.Concrete.EfOrderProcessor|Failure sending mail.
+2018-11-09 11:37:48.2923|INFO|SportsStore.WebUI.Controllers.CartController|Order ¹0 was created.
+2018-11-09 11:38:49.2916|INFO|SportsStore.WebUI.Controllers.AccountController|kseniia logged in.
+2018-11-09 11:39:48.2195|ERROR|SportsStore.Domain.Concrete.EfOrderProcessor|Failure sending mail.
+2018-11-09 11:39:48.2404|INFO|SportsStore.WebUI.Controllers.CartController|Order ¹0 was created.
+2018-11-09 11:42:28.9143|INFO|SportsStore.WebUI.Controllers.AccountController|kseniia logged in.
+2018-11-09 11:43:28.6310|ERROR|SportsStore.Domain.Concrete.EfOrderProcessor|Failure sending mail.
+2018-11-09 11:43:29.0892|INFO|SportsStore.WebUI.Controllers.CartController|Order ¹0 was created.
+2018-11-09 12:01:09.1047|INFO|SportsStore.WebUI.Controllers.AccountController|kseniia logged in.
+2018-11-09 12:02:09.6593|ERROR|SportsStore.Domain.Concrete.EfOrderProcessor|Failure sending mail.
+2018-11-09 12:02:10.0334|INFO|SportsStore.WebUI.Controllers.CartController|Order ¹0 was created.
+2018-11-09 19:41:26.7902|INFO|SportsStore.WebUI.Controllers.AccountController|kseniia logged in.
+2018-11-09 19:41:57.3493|INFO|SportsStore.WebUI.Controllers.CartController|Order ¹0 was created.

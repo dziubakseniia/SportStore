@@ -129,7 +129,9 @@ namespace SportsStore.WebUI.Controllers
 
             if (ModelState.IsValid)
             {
-                _orderProcessor.ProcessOrder(cart, shippingDetails, order);
+                _orderProcessor.SendEmail(cart, shippingDetails);
+                _orderProcessor.CreateOrder(cart, shippingDetails, order);
+
                 foreach (var line in cart.Lines)
                 {
                     foreach (var product in _productRepository.Products)

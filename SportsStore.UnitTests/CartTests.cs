@@ -67,6 +67,27 @@ namespace SportsStore.UnitTests
         }
 
         [TestMethod]
+        public void Can_Remove_From_Cart()
+        {
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products)
+                .Returns(new[]
+                {
+                    new Product { ProductId = 1, Name = "P1"},
+                    new Product { ProductId = 2, Name = "P2"}
+                }.AsQueryable());
+
+            Cart cart = new Cart();
+            CartController target = new CartController(mock.Object, null);
+            target.AddToCart(cart, 1, null);
+            target.AddToCart(cart, 2, null);
+            target.RemoveFromCart(cart, 1, null);
+
+            Assert.AreEqual(cart.Lines.Count(), 1);
+            Assert.AreEqual(cart.Lines.ToArray()[0].Product.ProductId, 2);
+        }
+
+        [TestMethod]
         public void Calculate_Cart_Total()
         {
             Product p1 = new Product { ProductId = 1, Name = "P1", Price = 100M };
@@ -149,7 +170,7 @@ namespace SportsStore.UnitTests
             CartController target = new CartController(null, mock.Object);
 
             ViewResult result = target.Checkout(cart, shippingDetails, order);
-            mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>(), It.IsAny<Order>()), Times.Never);
+            mock.Verify(m => m.SendEmail(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Never);
 
             Assert.AreEqual("", result.ViewName);
             Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
@@ -166,7 +187,7 @@ namespace SportsStore.UnitTests
             target.ModelState.AddModelError("error", @"error");
 
             ViewResult result = target.Checkout(cart, new ShippingDetails(), new Order());
-            mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>(), It.IsAny<Order>()), Times.Never);
+            mock.Verify(m => m.SendEmail(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Never);
 
             Assert.AreEqual("", result.ViewName);
             Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
@@ -176,13 +197,16 @@ namespace SportsStore.UnitTests
         public void Can_Checkout_And_Submit_Order()
         {
             Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
+            Mock<IProductRepository> mockProduct = new Mock<IProductRepository>();
+
             Cart cart = new Cart();
             cart.AddItem(new Product(), 1);
 
-            CartController target = new CartController(null, mock.Object);
+            CartController target = new CartController(mockProduct.Object, mock.Object);
 
             ViewResult result = target.Checkout(cart, new ShippingDetails(), new Order());
-            mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>(), It.IsAny<Order>()), Times.Once);
+            mock.Verify(m => m.SendEmail(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Once);
+            mock.Verify(m => m.CreateOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>(), It.IsAny<Order>()), Times.Once);
 
             Assert.AreEqual("Completed", result.ViewName);
             Assert.AreEqual(true, result.ViewData.ModelState.IsValid);

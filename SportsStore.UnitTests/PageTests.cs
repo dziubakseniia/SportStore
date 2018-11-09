@@ -49,9 +49,9 @@ namespace SportsStore.UnitTests
             Func<int, string> pageUrlDelegate = i => "Page" + i;
             MvcHtmlString result = ((HtmlHelper)null).PageLinks(pagingInfo, pageUrlDelegate);
 
-            Assert.AreEqual(@"<a class=""btn btn-default"" href=""Page1"">1</a>"
-                            + @"<a class=""btn btn-default btn-primary selected"" href=""Page2"">2</a>"
-                            + @"<a class=""btn btn-default"" href=""Page3"">3</a>", result.ToString());
+            Assert.AreEqual(@"<a class=""btn border-primary border"" href=""Page1"">1</a>"
+                            + @"<a class=""btn btn-primary selected border-primary border"" href=""Page2"">2</a>"
+                            + @"<a class=""btn border-primary border"" href=""Page3"">3</a>", result.ToString());
         }
 
         [TestMethod]

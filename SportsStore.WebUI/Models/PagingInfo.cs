@@ -2,6 +2,9 @@
 
 namespace SportsStore.WebUI.Models
 {
+    /// <summary>
+    /// Manages PagesInfo ViewModel.
+    /// </summary>
     public class PagingInfo
     {
         public int TotalItems { get; set; }

@@ -2,6 +2,9 @@
 
 namespace SportsStore.WebUI.Models
 {
+    /// <summary>
+    /// Manages Role modification.
+    /// </summary>
     public class RoleModificationModel
     {
         [Required]

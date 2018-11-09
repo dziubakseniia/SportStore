@@ -2,6 +2,9 @@
 
 namespace SportsStore.WebUI.Models
 {
+    /// <summary>
+    /// Manages Users View.
+    /// </summary>
     public class UserViewModel
     {
         [Required(ErrorMessage = "Please enter a user name.")]

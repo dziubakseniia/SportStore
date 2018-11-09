@@ -4,6 +4,9 @@ using SportsStore.Domain.Identity.Concrete;
 
 namespace SportsStore.WebUI.Models
 {
+    /// <summary>
+    /// Manages Role editing.
+    /// </summary>
     public class RoleEditModel
     {
         public EfRole Role { get; set; }

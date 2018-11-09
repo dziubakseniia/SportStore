@@ -55,12 +55,11 @@ namespace SportsStore.Domain.Concrete
         }
 
         /// <summary>
-        /// Creates new order and send the email message with info to client.
+        /// Dends the email message with info to client.
         /// </summary>
         /// <param name="cart">A <c>Cart</c>.</param>
-        /// <param name="shippingDetails">A <c>ShippingDetails</c>.</param>
-        /// <param name="order">An <c>Order</c>.</param>
-        public void ProcessOrder(Cart cart, ShippingDetails shippingDetails, Order order)
+        /// <param name="shippingDetails"><c>ShippingDetails</c>.</param>
+        public void SendEmail(Cart cart, ShippingDetails shippingDetails)
         {
             using (var smtpClient = new SmtpClient())
             {
@@ -103,25 +102,34 @@ namespace SportsStore.Domain.Concrete
                 {
                     _logger.Error(exception.Message);
                 }
-
-                body = new StringBuilder();
-
-                body.AppendFormat("Total order value: {0:c}\n", cart.ComputeTotalValue())
-                    .AppendLine("Ship to:")
-                    .AppendLine(shippingDetails.Name + "\n")
-                    .AppendLine("Address:\n")
-                    .AppendLine(shippingDetails.Address + "\n")
-                    .AppendLine(shippingDetails.City + "\n")
-                    .AppendLine(shippingDetails.Country + "\n")
-                    .AppendFormat("Gift wrap: {0}", shippingDetails.GiftWrap ? "Yes" : "No");
-
-                order = new Order();
-                order.Status = "Registered";
-                order.Info = body.ToString();
-                order.UserId = CurrentUserManager.Id;
-
-                SaveOrder(order);
             }
+        }
+
+        /// <summary>
+        /// Creates new Order.
+        /// </summary>
+        /// <param name="cart">A <c>Cart</c>.</param>
+        /// <param name="shippingDetails"><c>ShippingDetails</c>.</param>
+        /// <param name="order">An <c>Order</c>.</param>
+        public void CreateOrder(Cart cart, ShippingDetails shippingDetails, Order order)
+        {
+            StringBuilder body = new StringBuilder();
+
+            body.AppendFormat("Total order value: {0:c}\n", cart.ComputeTotalValue())
+                .AppendLine("Ship to:")
+                .AppendLine(shippingDetails.Name + "\n")
+                .AppendLine("Address:\n")
+                .AppendLine(shippingDetails.Address + "\n")
+                .AppendLine(shippingDetails.City + "\n")
+                .AppendLine(shippingDetails.Country + "\n")
+                .AppendFormat("Gift wrap: {0}", shippingDetails.GiftWrap ? "Yes" : "No");
+
+            order = new Order();
+            order.Status = "Registered";
+            order.Info = body.ToString();
+            order.UserId = CurrentUserManager.Id;
+
+            SaveOrder(order);
         }
 
         /// <summary>
