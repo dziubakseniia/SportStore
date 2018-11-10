@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
-using SportsStore.Domain.Identity.Concrete;
 using SportsStore.WebUI.Controllers;
 using SportsStore.WebUI.Models;
 

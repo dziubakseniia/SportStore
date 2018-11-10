@@ -1,9 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SportsStore.WebUI.Controllers;
-using SportsStore.WebUI.Models;
 
 namespace SportsStore.UnitTests
 {

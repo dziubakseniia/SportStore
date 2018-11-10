@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -190,9 +189,6 @@ namespace SportsStore.UnitTests
             });
 
             ProductController controller = new ProductController(mock.Object);
-
-            byte[] defaultImage =
-                File.ReadAllBytes(@"D:\C#_Projects\SportStore\SportsStore.WebUI\Content\no-image-landscape.png");
 
             Assert.IsInstanceOfType(controller.GetImage(1), typeof(FileContentResult));
             Assert.AreEqual(productImage, controller.GetImage(1).FileContents);

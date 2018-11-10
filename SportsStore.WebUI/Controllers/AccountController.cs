@@ -1,16 +1,13 @@
-﻿using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SportsStore.Domain.Entities;
 using SportsStore.Domain.Identity.Concrete;
-using SportsStore.Domain.Migrations;
 using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Controllers
