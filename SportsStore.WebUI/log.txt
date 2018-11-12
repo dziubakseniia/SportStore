@@ -30,3 +30,160 @@
 2018-11-10 00:47:11.0651|INFO|SportsStore.WebUI.Controllers.AdminController|Kayak was changed.
 2018-11-10 00:47:15.4858|INFO|SportsStore.WebUI.Controllers.AccountController|User logged out.
 2018-11-10 00:47:26.1082|INFO|SportsStore.WebUI.Controllers.AccountController|kseniia logged in.
+2018-11-12 13:20:52.0801|INFO|SportsStore.WebUI.Controllers.AccountController|admin logged in.
+2018-11-12 13:20:57.4973|INFO|SportsStore.WebUI.Controllers.AdminController|Kayak was deleted.
+2018-11-12 13:20:59.1467|INFO|SportsStore.WebUI.Controllers.AdminController|Lifejacket was deleted.
+2018-11-12 13:21:00.4585|INFO|SportsStore.WebUI.Controllers.AdminController|Soccer Ball was deleted.
+2018-11-12 13:21:01.6322|INFO|SportsStore.WebUI.Controllers.AdminController|Corner Flags was deleted.
+2018-11-12 13:21:02.4539|INFO|SportsStore.WebUI.Controllers.AdminController|Stadium was deleted.
+2018-11-12 13:21:03.2295|INFO|SportsStore.WebUI.Controllers.AdminController|Thinking Cap was deleted.
+2018-11-12 13:21:03.9758|INFO|SportsStore.WebUI.Controllers.AdminController|Unsteady Chair was deleted.
+2018-11-12 13:21:04.5650|INFO|SportsStore.WebUI.Controllers.AdminController|Human Chess Board was deleted.
+2018-11-12 13:21:05.2064|INFO|SportsStore.WebUI.Controllers.AdminController|Bling-Bling King was deleted.
+2018-11-12 13:21:07.5721|INFO|SportsStore.WebUI.Controllers.AdminController|Nike was deleted.
+2018-11-12 13:21:09.4076|INFO|SportsStore.WebUI.Controllers.AdminController|New product was created.
+2018-11-12 13:24:17.4876|INFO|SportsStore.WebUI.Controllers.AdminController|USA Pro Yoga Mat was changed.
+2018-11-12 13:24:27.3846|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:25:32.9148|INFO|SportsStore.WebUI.Controllers.AdminController|New product was created.
+2018-11-12 13:27:08.5240|INFO|SportsStore.WebUI.Controllers.AdminController|USA Pro Medicine Ball was changed.
+2018-11-12 13:28:25.4643|INFO|SportsStore.WebUI.Controllers.AdminController|New product was created.
+2018-11-12 13:29:42.8247|INFO|SportsStore.WebUI.Controllers.AdminController|Nike Chelsea Home Shirt 2018 2019 Ladies was changed.
+2018-11-12 13:31:10.8739|INFO|SportsStore.WebUI.Controllers.AdminController|New product was created.
+2018-11-12 13:32:35.6514|INFO|SportsStore.WebUI.Controllers.AdminController|Under Armour Curry 3ZERO Basketball Shoes Mens was changed.
+2018-11-12 13:33:20.1124|INFO|SportsStore.WebUI.Controllers.AdminController|New product was created.
+2018-11-12 13:35:14.8023|INFO|SportsStore.WebUI.Controllers.AdminController|Karrimor Snow Fall Snow Boots Juniors was changed.
+2018-11-12 13:35:44.7435|INFO|SportsStore.WebUI.Controllers.AdminController|New product was created.
+2018-11-12 13:37:04.0685|INFO|SportsStore.WebUI.Controllers.AdminController|Wilson Ultra 105S CV Tennis Racket was changed.
+2018-11-12 13:38:17.0793|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:38:17.1783|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:38:17.5837|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:38:17.6792|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:38:20.0681|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:38:22.1440|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:38:22.1770|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:38:30.4535|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:38:32.6196|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:38:33.1253|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:38:36.9125|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:38:39.2161|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:38:39.7220|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:38:45.5730|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:38:54.9437|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:39:14.5470|INFO|SportsStore.WebUI.Controllers.AdminController|Under Armour Basketball Shoes Mens was changed.
+2018-11-12 13:39:20.1493|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:39:20.3083|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:39:20.6620|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:39:20.8302|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:39:22.5442|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:39:23.0435|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:39:28.1997|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:39:28.2547|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:39:28.6986|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:39:28.7617|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:39:30.9766|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:39:31.4710|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:40:07.2290|INFO|SportsStore.WebUI.Controllers.AdminController|New product was created.
+2018-11-12 13:41:06.3721|INFO|SportsStore.WebUI.Controllers.AdminController|Slazenger Silicone Swimming Cap Adults was changed.
+2018-11-12 13:41:58.7206|INFO|SportsStore.WebUI.Controllers.AdminController|New product was created.
+2018-11-12 13:42:59.5473|INFO|SportsStore.WebUI.Controllers.AdminController|Karrimor Urban 30 Rucksack was changed.
+2018-11-12 13:43:48.8524|INFO|SportsStore.WebUI.Controllers.AdminController|New product was created.
+2018-11-12 13:45:24.8376|INFO|SportsStore.WebUI.Controllers.AdminController|Under Armour Training T Shirt Mens was changed.
+2018-11-12 13:45:28.2938|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:28.3448|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:28.7948|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:28.8600|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:30.8856|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:31.3895|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:34.5648|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:36.0430|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:39.2518|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:39.7209|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:42.4239|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:44.5377|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:47.8506|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:49.6186|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:49.6856|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:50.1199|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:50.1879|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:52.0842|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:52.1362|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:52.5795|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:52.6437|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:57.0286|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:57.0756|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:57.5216|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:45:57.5788|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:01.5770|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:01.6279|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:02.0712|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:02.1284|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:04.9780|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:05.4646|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:05.4836|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:05.9811|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:08.1585|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:08.2045|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:08.6612|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:08.7060|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:23.4705|INFO|SportsStore.WebUI.Controllers.AccountController|User logged out.
+2018-11-12 13:46:33.2863|INFO|SportsStore.WebUI.Controllers.AccountController|kseniia logged in.
+2018-11-12 13:46:33.4243|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:33.5222|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:33.9289|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:34.0314|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:39.6332|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:39.6962|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:40.1393|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:40.1993|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:46:55.3306|INFO|SportsStore.WebUI.Controllers.CartController|Order ¹0 was created.
+2018-11-12 13:48:28.6963|INFO|SportsStore.WebUI.Controllers.AccountController|User logged out.
+2018-11-12 13:48:40.5139|INFO|SportsStore.WebUI.Controllers.AccountController|admin logged in.
+2018-11-12 13:49:31.6849|ERROR|SportsStore.WebUI.Controllers.UserAdminController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:49:31.7659|ERROR|SportsStore.WebUI.Controllers.UserAdminController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:49:31.8879|INFO|SportsStore.WebUI.Controllers.UserAdminController|User's user status was changed.
+2018-11-12 13:50:42.5312|INFO|SportsStore.WebUI.Controllers.AdminController|Orders' ¹6 status was changed.
+2018-11-12 13:50:54.2930|INFO|SportsStore.WebUI.Controllers.AdminController|Orders' ¹6 status was changed.
+2018-11-12 13:56:21.7742|INFO|SportsStore.WebUI.Controllers.AdminController|Orders' ¹6 status was changed.
+2018-11-12 13:58:45.5092|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:58:45.6072|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:58:46.0094|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:58:46.1115|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 13:58:51.7375|INFO|SportsStore.WebUI.Controllers.AdminController|Orders' ¹6 status was changed.
+2018-11-12 13:59:35.3658|INFO|SportsStore.WebUI.Controllers.AdminController|Orders' ¹6 status was changed.
+2018-11-12 14:20:20.1138|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 14:20:20.2597|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 14:20:20.6163|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 14:20:20.7745|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 14:20:25.4123|INFO|SportsStore.WebUI.Controllers.AccountController|User logged out.
+2018-11-12 14:20:32.4809|INFO|SportsStore.WebUI.Controllers.AccountController|kseniia logged in.
+2018-11-12 14:20:32.7359|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 14:20:33.2200|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 14:20:33.2530|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 14:20:33.7606|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 14:20:50.4926|INFO|SportsStore.WebUI.Controllers.CartController|Order ¹0 was created.
+2018-11-12 14:49:31.3939|INFO|SportsStore.WebUI.Controllers.AccountController|admin logged in.
+2018-11-12 14:55:20.5614|INFO|SportsStore.WebUI.Controllers.AdminController|Orders' ¹16 status was changed.
+2018-11-12 14:55:24.3172|INFO|SportsStore.WebUI.Controllers.AdminController|Orders' ¹16 status was changed.
+2018-11-12 14:56:16.9202|INFO|SportsStore.WebUI.Controllers.AdminController|Orders' ¹16 status was changed.
+2018-11-12 14:56:48.6274|INFO|SportsStore.WebUI.Controllers.AdminController|Orders' ¹16 status was changed.
+2018-11-12 14:56:52.0935|INFO|SportsStore.WebUI.Controllers.AdminController|Orders' ¹16 status was changed.
+2018-11-12 15:18:45.4417|INFO|SportsStore.WebUI.Controllers.UserAdminController|User Dmytro was created.
+2018-11-12 15:21:46.1615|INFO|SportsStore.WebUI.Controllers.RoleAdminController|Role Users was edited.
+2018-11-12 15:21:55.9474|INFO|SportsStore.WebUI.Controllers.AccountController|User logged out.
+2018-11-12 15:22:07.5589|INFO|SportsStore.WebUI.Controllers.AccountController|Dmytro logged in.
+2018-11-12 15:22:09.4449|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 15:22:09.5429|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 15:22:09.9610|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 15:22:10.0521|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 15:22:15.3518|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 15:22:15.8507|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 15:22:56.6942|INFO|SportsStore.WebUI.Controllers.CartController|Order ¹0 was created.
+2018-11-12 15:34:53.2432|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 15:34:53.7410|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 15:34:54.3357|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 15:34:54.3897|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 15:34:54.8512|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 15:34:54.8962|ERROR|SportsStore.WebUI.Controllers.ProductController|Exception of type 'System.Exception' was thrown.
+2018-11-12 15:35:26.1343|INFO|SportsStore.WebUI.Controllers.AccountController|User logged out.
+2018-11-12 15:35:31.8871|INFO|SportsStore.WebUI.Controllers.AccountController|admin logged in.
+2018-11-12 15:35:41.4358|INFO|SportsStore.WebUI.Controllers.UserAdminController|Role Dmytro was deleted.

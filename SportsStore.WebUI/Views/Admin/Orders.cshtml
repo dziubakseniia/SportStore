@@ -1,4 +1,6 @@
-﻿@model System.Collections.Generic.IEnumerable<SportsStore.Domain.Entities.Order>
+﻿@using System.Collections
+@using System.Web.Mvc.Html
+@model System.Collections.Generic.IEnumerable<SportsStore.Domain.Entities.Order>
 @{
     ViewBag.Title = "Admin: All Orders";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -25,10 +27,11 @@
                     <td class="text-center">
                         @item.Info
                     </td>
-                    @using (Html.BeginForm("SaveStatus", "Admin"))
+                    @using (Html.BeginForm("ChangeStatus", "Admin"))
                     {
                         <td class="text-center">
-                            @Html.DropDownList("status", null, new {@class="form-control-sm"})
+                            @item.Status
+                            @Html.DropDownList("status", null, new {@class = "form-control-sm"})
                         </td>
 
                         <td class="text-center">

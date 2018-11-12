@@ -46,7 +46,12 @@ namespace SportsStore.WebUI.Controllers
         public ViewResult Edit(int productId)
         {
             Product product = _productRepository.Products.FirstOrDefault(p => p.ProductId == productId);
-            return View(product);
+            if (product != null)
+            {
+                return View(product);
+            }
+
+            return View("Index");
         }
 
         /// <summary>
@@ -113,23 +118,23 @@ namespace SportsStore.WebUI.Controllers
 
             List<SelectListItem> items = new List<SelectListItem>
             {
-                new SelectListItem {Text = @"registered", Value = "registered"},
-                new SelectListItem {Text = @"paid", Value = "paid"},
-                new SelectListItem {Text = @"canceled", Value = "canceled"}
+                new SelectListItem {Text = @"Registered", Value = "Registered"},
+                new SelectListItem {Text = @"Paid", Value = "Paid"},
+                new SelectListItem {Text = @"Canceled", Value = "Canceled"}
             };
-
-            ViewBag.Status = items;
+            ViewBag.status = items;
 
             return View(_orderProcessor.Orders);
         }
 
         /// <summary>
-        /// Saves Status of Order.
+        /// PostBack method that Saves Status of Order.
         /// </summary>
         /// <param name="orderId">int OrderId for saving status.</param>
         /// <param name="status">string Value of status.</param>
         /// <returns>Redirects to Action "Orders".</returns>
-        public ActionResult SaveStatus(int orderId, string status)
+        [HttpPost]
+        public ActionResult ChangeStatus(int orderId, string status)
         {
             Order order = _orderProcessor.Orders.FirstOrDefault(o => o.OrderId == orderId);
             if (order != null)
@@ -140,7 +145,7 @@ namespace SportsStore.WebUI.Controllers
                 _logger.Info($"Orders' №{orderId} status was changed.");
             }
 
-            return RedirectToAction("Orders");
+            return Redirect("Orders");
         }
     }
 }

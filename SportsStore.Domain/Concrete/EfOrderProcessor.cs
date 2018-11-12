@@ -116,12 +116,6 @@ namespace SportsStore.Domain.Concrete
             StringBuilder body = new StringBuilder();
 
             body.AppendFormat("Total order value: {0:c}\n", cart.ComputeTotalValue())
-                .AppendLine("Ship to:")
-                .AppendLine(shippingDetails.Name + "\n")
-                .AppendLine("Address:\n")
-                .AppendLine(shippingDetails.Address + "\n")
-                .AppendLine(shippingDetails.City + "\n")
-                .AppendLine(shippingDetails.Country + "\n")
                 .AppendFormat("Gift wrap: {0}", shippingDetails.GiftWrap ? "Yes" : "No");
 
             order = new Order();

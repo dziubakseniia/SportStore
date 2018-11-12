@@ -134,11 +134,11 @@ namespace SportsStore.UnitTests
         public void Can_Save_Order_Status()
         {
             Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
-            Order order = new Order { OrderId = 1, Status = "registered" };
+            Order order = new Order { OrderId = 1, Status = "Registered" };
             mock.Setup(m => m.Orders).Returns(new[] { order });
 
             AdminController controller = new AdminController(null, mock.Object);
-            controller.SaveStatus(order.OrderId, "canceled");
+            controller.ChangeStatus(order.OrderId, "Canceled");
 
             Assert.AreEqual("canceled", order.Status);
         }
