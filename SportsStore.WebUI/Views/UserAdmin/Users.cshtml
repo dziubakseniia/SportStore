@@ -54,16 +54,17 @@
                             @user.Status.ToString()
                         </td>
                         <td>
-                            @using (Html.BeginForm("DeleteUser", "UserAdmin", new {id = user.Id}))
+                            @using (Html.BeginForm("DeleteUserConfirmation", "UserAdmin", new { id = user.Id }))
                             {
-                                @Html.ActionLink("Change Status", "ChangeStatus", new {id = user.Id}, new {@class = "btn btn-success btn-sm mr-1 mb-1"})
-                                @Html.ActionLink("Edit", "EditUser", new {id = user.Id}, new {@class = "btn btn-primary btn-sm mb-1"})
-                                <input type="submit" value="Delete" class="btn btn-danger btn-sm"/>
+                                @Html.ActionLink("Change Status", "ChangeStatus", new { id = user.Id }, new { @class = "btn btn-success btn-sm mr-1" })
+                                @Html.ActionLink("Edit", "EditUser", new { id = user.Id }, new { @class = "btn btn-primary btn-sm" })
+                                <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
                             }
                         </td>
                     </tr>
                 }
             }
-        </table></div>
+        </table>
+    </div>
 </div>
 <div class="card-footer text-center">@Html.ActionLink("Create", "CreateUser", null, new { @class = "btn btn-primary" })</div>

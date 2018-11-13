@@ -34,11 +34,11 @@ namespace SportsStore.WebUI.Controllers
         /// <param name="sorting">String selected sorting type.</param>
         /// <param name="page">int page number from which to view List of Products.</param>
         /// <returns>View of ProductsViewModel</returns>
-        public ViewResult List(string category, string sorting = null, int page = 1)
+        public ViewResult List(string category, string sorting = null, int page = 1, string search = null)
         {
             ProductsListViewModel model = new ProductsListViewModel
             {
-                Products = SortedProducts(category, sorting, page),
+                Products = SortedProducts(category, sorting, page, search),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
@@ -84,12 +84,13 @@ namespace SportsStore.WebUI.Controllers
         /// <param name="page">int page from which to view Products.</param>
         /// <returns>Sorted Products in depend on sorting type.</returns>
         /// <returns>Unsorted Products if there is no sorting type.</returns>
-        public IEnumerable<Product> SortedProducts(string category, string sorting = null, int page = 1)
+        public IEnumerable<Product> SortedProducts(string category, string sorting = null, int page = 1, string search = null)
         {
             if (sorting == "Sort from A to Z")
             {
                 return _productRepository.Products
                     .Where(p => category == null || p.Category == category)
+                    .Where(p => search == null || p.Name == search)
                     .OrderBy(p => p.Name)
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize);
@@ -99,6 +100,7 @@ namespace SportsStore.WebUI.Controllers
             {
                 return _productRepository.Products
                     .Where(p => category == null || p.Category == category)
+                    .Where(p => search == null || p.Name == search)
                     .OrderByDescending(p => p.Name)
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize);
@@ -108,6 +110,7 @@ namespace SportsStore.WebUI.Controllers
             {
                 return _productRepository.Products
                     .Where(p => category == null || p.Category == category)
+                    .Where(p => search == null || p.Name == search)
                     .OrderBy(p => p.Price)
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize);
@@ -117,6 +120,7 @@ namespace SportsStore.WebUI.Controllers
             {
                 return _productRepository.Products
                     .Where(p => category == null || p.Category == category)
+                    .Where(p => search == null || p.Name == search)
                     .OrderByDescending(p => p.Price)
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize);
@@ -126,6 +130,7 @@ namespace SportsStore.WebUI.Controllers
             {
                 return _productRepository.Products
                     .Where(p => category == null || p.Category == category)
+                    .Where(p => search == null || p.Name == search)
                     .OrderByDescending(p => p.DateOfAddition)
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize);
@@ -133,6 +138,7 @@ namespace SportsStore.WebUI.Controllers
 
             return _productRepository.Products
                  .Where(p => category == null || p.Category == category)
+                 .Where(p => search == null || p.Name == search)
                  .OrderBy(p => p.ProductId)
                  .Skip((page - 1) * PageSize)
                  .Take(PageSize);

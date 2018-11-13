@@ -86,6 +86,18 @@ namespace SportsStore.WebUI.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> DeleteUserConfirmation(string id)
+        {
+            User user = await UserManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                return View(user);
+            }
+
+            return RedirectToAction("Users");
+        }
+
         /// <summary>
         /// PostBack method for User to delete.
         /// </summary>

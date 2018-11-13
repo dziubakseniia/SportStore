@@ -14,6 +14,15 @@
     }
 </style>
 
+@using (Html.BeginForm("List", "Product", FormMethod.Post))
+{
+    <div class="row">
+        @Html.TextBox("searchBox", "", new { @class = "form-control" })
+    </div>
+    <input type="submit" value="Search" />
+
+}
+
 <div class="padding_bottom">
     Sort by @Html.Action("Sort", "Product")
     <div class="padding_top_for_card">

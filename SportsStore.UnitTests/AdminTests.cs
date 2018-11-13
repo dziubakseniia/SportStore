@@ -140,7 +140,7 @@ namespace SportsStore.UnitTests
             AdminController controller = new AdminController(null, mock.Object);
             controller.ChangeStatus(order.OrderId, "Canceled");
 
-            Assert.AreEqual("canceled", order.Status);
+            Assert.AreEqual("Canceled", order.Status);
         }
 
         [TestMethod]

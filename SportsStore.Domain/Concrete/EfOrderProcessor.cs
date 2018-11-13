@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using SportsStore.Domain.Abstract;
@@ -68,8 +69,16 @@ namespace SportsStore.Domain.Concrete
                 smtpClient.EnableSsl = true;
                 smtpClient.Credentials = new NetworkCredential(_emailSettings.UserLogin, _emailSettings.UserPassword);
 
+                TagBuilder tag = new TagBuilder("div");
+                tag.AddCssClass("bg-info");
+                tag.AddCssClass("text-white");
+
+                TagBuilder topicTag = new TagBuilder("p");
+                tag.AddCssClass("font-weight-bold");
+
                 StringBuilder body = new StringBuilder()
-                    .AppendLine("New order has been submitted")
+                    .AppendLine("")
+                    .AppendLine("New order has been submitted").Append(topicTag)
                     .AppendLine("---")
                     .AppendLine("Items:");
 
@@ -89,6 +98,8 @@ namespace SportsStore.Domain.Concrete
                     .AppendLine(shippingDetails.Country)
                     .AppendLine("---")
                     .AppendFormat("Gift wrap: {0}", shippingDetails.GiftWrap ? "Yes" : "No");
+
+                body.Append(tag);
 
                 MailMessage mailMessage = new MailMessage(_emailSettings.UserLogin,
                                                           shippingDetails.Email,

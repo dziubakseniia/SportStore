@@ -36,6 +36,15 @@
                                         })
                                     </p>
                                 }
+                                else if(property.PropertyName == "DateOfAddition")
+                                {
+                                    <p class="col-sm-6">
+                                        @Html.EditorFor(model => model.DateOfAddition,
+                                            new
+                                            { htmlAttributes =
+                                                new { @class = "form-control", @Value = Model.DateOfAddition.ToString("MM/dd/yyyy") } })
+                                    </p>
+                                }
                                 else
                                 {
                                     <p class="col-sm-6">
@@ -54,7 +63,7 @@
             <div class="form-group">
                 <div style="position: relative;">
                     <label>Image</label>
-                    <p ><input type="file" name="image" class="form-control-file"/></p>
+                    <p><input type="file" name="image" class="form-control-file" /></p>
                 </div>
                 @if (Model.ImageData != null)
                 {

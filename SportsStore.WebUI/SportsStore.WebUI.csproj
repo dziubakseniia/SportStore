@@ -284,6 +284,7 @@
     <Content Include="Views\UserAdmin\ChangeStatus.cshtml" />
     <Content Include="Views\Cart\UserOrders.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\UserAdmin\DeleteUserConfirmation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

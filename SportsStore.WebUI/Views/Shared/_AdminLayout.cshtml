@@ -19,6 +19,7 @@
                 <div class="navbar-right d-none d-sm-block">
                     @if (User.Identity.IsAuthenticated)
                     {
+                            <span class="text-secondary">You logged as <strong>@User.Identity.Name</strong></span>
                         <label class="navbar-text">Logout</label>
                         <a href="@Url.Action("Logout", "Account", new {returnUrl = Request.Url.PathAndQuery})" class="btn btn-outline-secondary">
                             <span class="fas fa-sign-out-alt"></span>

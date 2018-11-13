@@ -163,18 +163,6 @@ namespace SportsStore.UnitTests
             CollectionAssert.AreEqual(result5.ToList(), controller.SortedProducts(null, "Newest Arrivals").ToList());
         }
 
-        /*public FileContentResult GetImage(int productId)
-        {
-            Product product = _productRepository.Products.FirstOrDefault(p => p.ProductId == productId);
-            byte[] defaultImage = System.IO.File.ReadAllBytes(HttpContext.Server.MapPath("~/Content/no-image-landscape.png"));
-            if (product != null && product.ImageData != null)
-            {
-                return File(product.ImageData, product.ImageMimeType);
-            }
-
-            return new FileContentResult(defaultImage, "image/png");
-        }*/
-
         [TestMethod]
         public void Can_Get_Image()
         {
